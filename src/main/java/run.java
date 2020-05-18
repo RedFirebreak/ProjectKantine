@@ -18,6 +18,6 @@ public class run {
         simulatie = new KantineSimulatie1(tempdagen);
 
         // test print to confirm run
-        System.out.println("[EXIT] yeet ~ Kantine has run and finished without crashing. Exiting program.");
+        System.out.println("[EXIT] Kantine has run and finished without crashing. Exiting program.");
     }
 }
