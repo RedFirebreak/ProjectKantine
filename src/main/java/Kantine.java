@@ -12,9 +12,9 @@ public class Kantine {
     }
 
     /**
-     * In deze methode wordt een Persoon en Dienblad gemaakt en aan elkaar gekoppeld. Maak twee
-     * Artikelen aan en plaats deze op het dienblad. Tenslotte sluit de Persoon zich aan bij de rij
-     * voor de kassa.
+     * In deze methode wordt een Persoon en Dienblad gemaakt en aan elkaar
+     * gekoppeld. Maak twee Artikelen aan en plaats deze op het dienblad. Tenslotte
+     * sluit de Persoon zich aan bij de rij voor de kassa.
      */
     public void loopPakSluitAan() {
         // method body omitted
@@ -24,9 +24,9 @@ public class Kantine {
      * Deze methode handelt de rij voor de kassa af.
      */
     public void verwerkRijVoorKassa() {
-        while () {
-            // omitted
-        }
+        // while () {
+        // omitted
+        // }
     }
 
     /**
@@ -34,8 +34,10 @@ public class Kantine {
      *
      * @return hoeveelheid geld in kassa
      */
-    public double hoeveelheidGeldInKassa() {
+    public void hoeveelheidGeldInKassa() {
         // method body omitted
+
+        // RETURN DOUBLE. MADE VOID TO COMPILE
     }
 
     /**
@@ -43,15 +45,24 @@ public class Kantine {
      *
      * @return het aantal gepasseerde artikelen
      */
-    public int aantalArtikelen() {
+    public void aantalArtikelen() {
+        // method body omitted
+
+        // RETURN INT. MADE VOID TO COMPILE
+    }
+
+    /**
+     * Deze methode reset de bijgehouden telling van het aantal artikelen en "leegt"
+     * de inhoud van de kassa.
+     */
+    public void resetKassa() {
         // method body omitted
     }
 
     /**
-     * Deze methode reset de bijgehouden telling van het aantal artikelen en "leegt" de inhoud van
-     * de kassa.
+     * TODO WAS UNDEFINED
      */
-    public void resetKassa() {
+    public void setKantineAanbod(KantineAanbod kantineaanbod) {
         // method body omitted
     }
 }

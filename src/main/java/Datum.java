@@ -7,10 +7,10 @@ public class Datum {
 	/**
 	 * Constructor
 	 */
-	// TODO
+	// TODO set up Datum :)
 
 	public boolean bestaatDatum(int dag, int maand, int jaar) {
-		// TODO
+		// TODO Check of datum bestaat / always false
 		return false;
 	}
 
@@ -20,7 +20,7 @@ public class Datum {
 	 * @return Geboortedatum
 	 */
 	public String getDatumAsString() {
-		// TODO
+		// TODO Verander datum naar string, returns empty string
 		return "";
 	}
 }

@@ -19,6 +19,7 @@ public class Dienblad {
      */
     public void voegToe(Artikel artikel) {
         // method body omitted
+        // TODO Voeg artikel toe
     }
 
     /**
@@ -26,8 +27,9 @@ public class Dienblad {
      *
      * @return Het aantal artikelen
      */
-    public int getAantalArtikelen() {
+    public void getAantalArtikelen() {
         // method body omitted
+        // TODO Return int, krijg aantal artikelen
     }
 
     /**
@@ -35,8 +37,8 @@ public class Dienblad {
      *
      * @return De totaalprijs
      */
-    public double getTotaalPrijs() {
+    public void getTotaalPrijs() {
         // method body omitted
+        // TODO Return double, krijg totaalprijs
     }
 }
-

@@ -20,13 +20,15 @@ public class KassaRij {
     }
 
     /**
-     * Indien er een rij bestaat, de eerste klant uit de rij verwijderen en retourneren. Als er
-     * niemand in de rij staat geeft deze null terug.
+     * Indien er een rij bestaat, de eerste klant uit de rij verwijderen en
+     * retourneren. Als er niemand in de rij staat geeft deze null terug.
      *
      * @return Eerste klant in de rij of null
      */
-    public Dienblad eerstePersoonInRij() {
+    public void eerstePersoonInRij() {
         // method body omitted
+
+        // TODO return Dienblad
     }
 
     /**
@@ -36,5 +38,7 @@ public class KassaRij {
      */
     public boolean erIsEenRij() {
         // method body omitted
+
+        return true;
     }
 }

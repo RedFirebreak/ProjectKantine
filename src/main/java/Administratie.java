@@ -6,8 +6,10 @@ public class Administratie {
      * @param aantal
      * @return het gemiddelde
      */
-    public double berekenGemiddeldAantal(int[] aantal) {
+    public void berekenGemiddeldAantal(int[] aantal) {
         // method body omitted
+
+        // TODO RETURN A DOUBLE. ADDED VOID TO COMPILE
     }
 
     /**
@@ -16,8 +18,10 @@ public class Administratie {
      * @param omzet
      * @return het gemiddelde
      */
-    public double berekenGemiddeldeOmzet(double[] omzet) {
+    public void berekenGemiddeldeOmzet(double[] omzet) {
         // method body omitted
+
+        // TODO RETURN A DOUBLE. ADDED VOID TO COMPILE
     }
 
     /**
@@ -29,15 +33,14 @@ public class Administratie {
 
     public static double[] berekenDagOmzet(double[] omzet) {
         double[] temp = new double[7];
-        for(int i = 0; i < 7; i++) {
+        for (int i = 0; i < 7; i++) {
 
             int j = 0;
-            while ( ... ) {
-                temp[i] += omzet[i + 7 * j];
+            // while ( ... ) {
+            temp[i] += omzet[i + 7 * j];
 
-                // omitted
+            // omitted
 
-            }
         }
         return temp;
     }

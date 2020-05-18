@@ -1,6 +1,7 @@
+import java.sql.Array;
 import java.util.*;
 
-public class KantineSimulatie {
+public class KantineSimulatie2 {
 
     // kantine
     private Kantine kantine;
@@ -15,11 +16,11 @@ public class KantineSimulatie {
     private static final int AANTAL_ARTIKELEN = 4;
 
     // artikelen
-    private static final String[] artikelnamen =
-            new String[] {"Koffie", "Broodje pindakaas", "Broodje kaas", "Appelsap"};
+    private static final String[] artikelnamen = new String[] { "Koffie", "Broodje pindakaas", "Broodje kaas",
+            "Appelsap" };
 
     // prijzen
-    private static double[] artikelprijzen = new double[] {1.50, 2.10, 1.65, 1.65};
+    private static double[] artikelprijzen = new double[] { 1.50, 2.10, 1.65, 1.65 };
 
     // minimum en maximum aantal artikelen per soort
     private static final int MIN_ARTIKELEN_PER_SOORT = 10000;
@@ -37,19 +38,18 @@ public class KantineSimulatie {
      * Constructor
      *
      */
-    public KantineSimulatie() {
+    public KantineSimulatie2() {
         kantine = new Kantine();
         random = new Random();
-        int[] hoeveelheden =
-                getRandomArray(AANTAL_ARTIKELEN, MIN_ARTIKELEN_PER_SOORT, MAX_ARTIKELEN_PER_SOORT);
+        int[] hoeveelheden = getRandomArray(AANTAL_ARTIKELEN, MIN_ARTIKELEN_PER_SOORT, MAX_ARTIKELEN_PER_SOORT);
         kantineaanbod = new KantineAanbod(artikelnamen, artikelprijzen, hoeveelheden);
 
         kantine.setKantineAanbod(kantineaanbod);
     }
 
     /**
-     * Methode om een array van random getallen liggend tussen min en max van de gegeven lengte te
-     * genereren
+     * Methode om een array van random getallen liggend tussen min en max van de
+     * gegeven lengte te genereren
      *
      * @param lengte
      * @param min
@@ -77,8 +77,8 @@ public class KantineSimulatie {
     }
 
     /**
-     * Methode om op basis van een array van indexen voor de array artikelnamen de bijhorende array
-     * van artikelnamen te maken
+     * Methode om op basis van een array van indexen voor de array artikelnamen de
+     * bijhorende array van artikelnamen te maken
      *
      * @param indexen
      * @return De array met artikelnamen
@@ -95,33 +95,36 @@ public class KantineSimulatie {
     }
 
     /**
-     * Deze methode simuleert een aantal dagen
-     * in het verloop van de kantine
+     * Deze methode simuleert een aantal dagen in het verloop van de kantine
      *
      * @param dagen
      */
     public void simuleer(int dagen) {
         // for lus voor dagen
-        for(int i = 0; i < dagen; i++) {
+        for (int i = 0; i < dagen; i++) {
 
             // bedenk hoeveel personen vandaag binnen lopen
-            int aantalpersonen = ... ;
+            int aantalpersonen = 5; // FIX
 
             // laat de personen maar komen...
             for (int j = 0; j < aantalpersonen; j++) {
 
                 // maak persoon en dienblad aan, koppel ze
                 // en bedenk hoeveel artikelen worden gepakt
-                int aantalartikelen = ... ;
+                int aantalartikelen = 5; // FIX
 
                 // genereer de "artikelnummers", dit zijn indexen
                 // van de artikelnamen
-                array int[] tepakken = getRandomArray(
-                    aantalartikelen, 0, AANTAL_ARTIKELEN-1);
+
+                // TODO array int[] breaks it...
+                // array int[] tepakken = getRandomArray( aantalartikelen, 0,
+                // AANTAL_ARTIKELEN-1);
 
                 // vind de artikelnamen op basis van
                 // de indexen hierboven
-                String[] artikelen = geefArtikelNamen(tepakken);
+
+                // TODO tepakken is een to-do. Dit dus ook.
+                // String[] artikelen = geefArtikelNamen(tepakken);
 
                 // loop de kantine binnen, pak de gewenste
                 // artikelen, sluit aan
