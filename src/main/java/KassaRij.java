@@ -3,11 +3,13 @@ import java.util.LinkedList;
 
 public class KassaRij {
 
+    ArrayList<Dienblad> wachtRij = new ArrayList<Dienblad>();
+
     /**
      * Constructor
      */
     public KassaRij() {
-        // method body omitted
+        // method body omitted [[FIX]]
     }
 
     /**
@@ -16,19 +18,24 @@ public class KassaRij {
      * @param klant
      */
     public void sluitAchteraan(Dienblad klant) {
-        // method body omitted
+        wachtRij.add(klant);
     }
 
     /**
-     * Indien er een rij bestaat, de eerste klant uit de rij verwijderen en
-     * retourneren. Als er niemand in de rij staat geeft deze null terug.
+     * Indien er een rij bestaat, de eerste klant uit de rij verwijderen en retourneren. 
+     * Als er niemand in de rij staat geeft deze null terug.
      *
      * @return Eerste klant in de rij of null
      */
-    public void eerstePersoonInRij() {
-        // method body omitted
-
-        // TODO return Dienblad
+    public Dienblad eerstePersoonInRij() {
+        if(wachtRij.get(0) == null) {
+            return null;
+        } else {
+            Dienblad eerstePersoonInRij = new Dienblad();
+            eerstePersoonInRij = wachtRij.get(0);
+            wachtRij.remove(0);
+            return eerstePersoonInRij;
+        }
     }
 
     /**
@@ -37,8 +44,10 @@ public class KassaRij {
      * @return Of er wel of geen rij bestaat
      */
     public boolean erIsEenRij() {
-        // method body omitted
-
-        return true;
+        boolean erIsEenRij = false;
+        if(wachtRij.size()>0) {
+            erIsEenRij = true;
+        }
+        return erIsEenRij;
     }
 }
