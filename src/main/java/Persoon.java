@@ -8,17 +8,17 @@ public class Persoon {
     /**
      * Maak een persoon aan.
      * 
-     * @param BSN BurgerServiceNummer van de persoon.
-     * @param voornaam De voornaam van de persoon.
-     * @param achternaam De achternaam van de persoon.
+     * @param BSN           BurgerServiceNummer van de persoon.
+     * @param voornaam      De voornaam van de persoon.
+     * @param achternaam    De achternaam van de persoon.
      * @param geboorteDatum de geboorteDatum van de persoon.
-     * @param geslacht Het geslacht van de persoon (M/V)
+     * @param geslacht      Het geslacht van de persoon (M/V)
      */
     public Persoon(int BSN, String voornaam, String achternaam, Datum geboorteDatum, char geslacht) {
-        this.BSN=BSN;
-        this.voornaam=voornaam;
-        this.achternaam=achternaam;
-        this.geboorteDatum=geboorteDatum;
+        this.BSN = BSN;
+        this.voornaam = voornaam;
+        this.achternaam = achternaam;
+        this.geboorteDatum = geboorteDatum;
         checkGeslacht(geslacht);
     }
 
@@ -26,16 +26,18 @@ public class Persoon {
      * Maak een leeg persoon aan.
      */
     public Persoon() {
-        geslacht = 'A';
-        geboorteDatum = new Datum(1, 1, 1900);
+        geslacht = 'F';
+        geboorteDatum = new Datum();
     }
 
     @Override
     /**
-     * Geef alle gegevens van de persoon weer in één String.
+     * Geef alle gegevens van de persoon weer in één String. getGeboorteDatum en
+     * getGeslacht moeten een Getter blijven i.v.m. extra checks.
      */
     public String toString() {
-        return "BSN: " + getBSN() + ", naam: " + getVoornaam() + " " + getAchternaam() + ", geboortedatum: " + getGeboorteDatum() + ", geslacht: " + getGeslacht() + ".";
+        return "BSN: " + BSN + ", naam: " + voornaam + " " + achternaam + ", geboortedatum: " + getGeboorteDatum()
+                + ", geslacht: " + getGeslacht() + ".";
     }
 
     /**
@@ -77,15 +79,15 @@ public class Persoon {
     /**
      * Krijg het geslacht van de Persoon.
      * 
-     * Dit geeft het geslacht terug in "Man" of "Vrouw", niet in M of V vorm.
-     * Als dit niet M of V is, geef onbekend.
+     * Dit geeft het geslacht terug in "Man" of "Vrouw", niet in M of V vorm. Als
+     * dit niet M of V is, geef onbekend.
      * 
      * @return Het geslacht.
      */
     public String getGeslacht() {
-        if(geslacht=='M') {
+        if (geslacht == 'M') {
             return "Man";
-        } else if(geslacht=='V') {
+        } else if (geslacht == 'V') {
             return "Vrouw";
         } else {
             return "Onbekend";
@@ -138,17 +140,19 @@ public class Persoon {
     }
 
     /**
-     * Deze methode controleert of het geslacht bestaat. 
+     * Deze methode controleert of het geslacht bestaat.
      * 
      * Het geslacht mag alleen M of V zijn.
      * 
      * @param geslacht Het geslacht om te controleren.
      */
     public void checkGeslacht(char geslacht) {
-        if(geslacht=='M' || geslacht=='V') {
+        if (geslacht == 'M' || geslacht == 'V') {
             this.geslacht = geslacht;
         } else {
-            System.out.println("Dit is niet een geldig geslacht, we doen hier alleen maar aan 2 geslachten, M (man) en V (vrouw).");
+            this.geslacht = 'F';
+            System.out.println(
+                    "Dit is niet een geldig geslacht, we doen hier alleen maar aan 2 geslachten, M (man) en V (vrouw).");
         }
     }
 }

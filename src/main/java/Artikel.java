@@ -2,40 +2,46 @@ public class Artikel {
     private String naam;
     private double prijs; // kan ook float, gebruikt minder memory.
 
-    //Initialisatie = de instantievariabelen initialiseren, dat wil zeggen dat je ze laat bestaan (hierboven gedaan)
-    //Declaratie = de instantievariabelen een eerste waarde geven (hier in de constructor)
+    // Initialisatie = de instantievariabelen initialiseren, dat wil zeggen dat je
+    // ze laat bestaan (hierboven gedaan)
+    // Declaratie = de instantievariabelen een eerste waarde geven (hier in de
+    // constructor)
 
     /**
-     * Een artikel is een product wat op een dienblad gezet kan worden, zodat de klant dit artikel kan afrekenen bij de kassa.
+     * Een artikel is een product wat op een dienblad gezet kan worden, zodat de
+     * klant dit artikel kan afrekenen bij de kassa.
      * 
-     * @param naam De naam van het artikel, in een String.
+     * @param naam  De naam van het artikel, in een String.
      * @param prijs De prijs van het artikel, in een double waarde (12.34)
      */
-    public Artikel (String naam, double prijs) {
+    public Artikel(String naam, double prijs) {
         this.naam = naam;
         this.prijs = prijs;
     }
 
     /**
-     * Een lege constructor, zodat de klasse kan worden aangeroepen zonder parameters. Naam en prijs worden hierdoor gezet.
+     * Een lege constructor, zodat de klasse kan worden aangeroepen zonder
+     * parameters. Naam en prijs worden hierdoor gezet.
      */
-    public Artikel () {
-        naam="Geen artikel gekozen";
-        prijs=9999.99;
+    public Artikel() {
+        naam = "Geen artikel gekozen";
+        prijs = 9999.99;
     }
 
     @Override
     /**
-     * Alle informatie teruggeven in een String, dit is in de vorm: "Artikelnaam: Boter, prijs: 1.21"
+     * Alle informatie teruggeven in een String, dit is in de vorm: "Artikelnaam:
+     * Boter, prijs: 1.21"
      * 
-     * @return Een String die de informatie van het artikel weergeeft. 
+     * @return Een String die de informatie van het artikel weergeeft.
      */
     public String toString() {
-        return "Artikelnaam: " + getNaam() + ", prijs: " + getPrijs();
+        return "Artikelnaam: " + naam + ", prijs: " + prijs;
     }
 
     /**
-     * De prijs van het artikel. Het is een Double dus de prijs bestaat uit hele getallen en getallen achter de komma. (bijvoorbeeld 12.50)
+     * De prijs van het artikel. Het is een Double dus de prijs bestaat uit hele
+     * getallen en getallen achter de komma. (bijvoorbeeld 12.50)
      * 
      * @return De prijs van het artikel.
      */
@@ -51,14 +57,15 @@ public class Artikel {
     public String getNaam() {
         return naam;
     }
-    
+
     /**
-     * De prijs van het artikel. Het is een Double dus de prijs bestaat uit hele getallen en getallen achter de komma. (bijvoorveeld 12.50)
+     * De prijs van het artikel. Het is een Double dus de prijs bestaat uit hele
+     * getallen en getallen achter de komma. (bijvoorveeld 12.50)
      * 
      * @param setPrijs De prijs van het artikel.
      */
     public void setPrijs(double setPrijs) {
-        prijs=setPrijs;
+        prijs = setPrijs;
     }
 
     /**
@@ -67,6 +74,6 @@ public class Artikel {
      * @param setNaam De naam van het artikel.
      */
     public void setNaam(String setNaam) {
-        naam=setNaam;
+        naam = setNaam;
     }
 }

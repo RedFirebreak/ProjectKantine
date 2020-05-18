@@ -6,7 +6,8 @@ public class Dienblad {
     private Persoon klant = new Persoon();
 
     /**
-     * Maak een dienblad aan, hieraan wordt een klant gekoppeld van de klasse Persoon.
+     * Maak een dienblad aan, hieraan wordt een klant gekoppeld van de klasse
+     * Persoon.
      */
     public Dienblad(Persoon klant) {
         this.klant = klant;
@@ -17,7 +18,7 @@ public class Dienblad {
      */
     public Dienblad() {
         Datum datum = new Datum(1, 1, 1900);
-        klant = new Persoon(0,"Leeg", "Leegerd", datum, 'M');
+        klant = new Persoon(0, "Leeg", "Leegerd", datum, 'F');
     }
 
     /**
@@ -41,7 +42,7 @@ public class Dienblad {
     /**
      * Methode om artikel aan dienblad toe te voegen
      *
-     * @param artikel
+     * @param artikel Het artikel om toe te voegen.
      */
     public void voegToe(Artikel artikel) {
         artikelen.add(artikel);
@@ -54,8 +55,8 @@ public class Dienblad {
      */
     public int getAantalArtikelen() {
         Iterator<Artikel> iterator = artikelen.iterator();
-        int aantalArtikelen=0;
-        while(iterator.hasNext()) {
+        int aantalArtikelen = 0;
+        while (iterator.hasNext()) {
             aantalArtikelen++;
         }
         return aantalArtikelen;
@@ -66,10 +67,10 @@ public class Dienblad {
      *
      * @return De totaalprijs.
      */
-    public double getTotaalPrijs() {
-        double totaal = 0;
+    public Double getTotaalPrijs() {
+        Double totaal = 0.0;
         Iterator<Artikel> iterator = artikelen.iterator();
-        while(iterator.hasNext()) {
+        while (iterator.hasNext()) {
             totaal += ((Artikel) iterator.next()).getPrijs();
         }
         return totaal;
@@ -81,8 +82,8 @@ public class Dienblad {
     public void noemArtikelen() {
         Iterator<Artikel> iterator = artikelen.iterator();
         System.out.println("Het dienblad bevat de volgende artikelen: ");
-        int i=1;
-        while(iterator.hasNext()) {
+        int i = 1;
+        while (iterator.hasNext()) {
             System.out.println(i + ": " + iterator.next() + " ");
             i++;
         }

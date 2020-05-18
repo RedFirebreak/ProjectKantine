@@ -9,31 +9,30 @@ public class KassaRij {
      * Constructor
      */
     public KassaRij() {
-        // method body omitted [[FIX]]
+        // method body omitted TODO DOCENT
     }
 
     /**
      * Persoon sluit achter in de rij aan
      *
-     * @param klant
+     * @param klant Het dienblad van de klant, die toegevoegd moet worden.
      */
     public void sluitAchteraan(Dienblad klant) {
         wachtRij.add(klant);
     }
 
     /**
-     * Indien er een rij bestaat, de eerste klant uit de rij verwijderen en retourneren. 
-     * Als er niemand in de rij staat geeft deze null terug.
+     * Indien er een rij bestaat, de eerste klant uit de rij verwijderen en
+     * retourneren. Als er niemand in de rij staat geeft deze null terug.
      *
      * @return Eerste klant in de rij of null
      */
     public Dienblad eerstePersoonInRij() {
-        if(wachtRij.get(0) == null) {
+        if (wachtRij.get(0) == null) {
             return null;
         } else {
-            Dienblad eerstePersoonInRij = new Dienblad();
-            eerstePersoonInRij = wachtRij.get(0);
-            wachtRij.remove(0);
+            Dienblad eerstePersoonInRij = wachtRij.get(0);
+            wachtRij.remove(0); // TODO Check of 0 bestaat na verwijderen (zoals een stack)
             return eerstePersoonInRij;
         }
     }
@@ -45,7 +44,7 @@ public class KassaRij {
      */
     public boolean erIsEenRij() {
         boolean erIsEenRij = false;
-        if(wachtRij.size()>0) {
+        if (wachtRij.size() > 0) {
             erIsEenRij = true;
         }
         return erIsEenRij;
