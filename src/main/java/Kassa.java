@@ -2,22 +2,29 @@ import java.util.Iterator;
 
 public class Kassa {
 
+    KassaRij kassaRij = new KassaRij();
+    Double totaalPrijs;
+    int aantalArtikelen;
+
     /**
      * Constructor
      */
-    public Kassa(KassaRij kassarij) {
-        // method body omitted
+    public Kassa(KassaRij kassaRij) {
+        this.kassaRij = kassaRij;
     }
 
     /**
-     * Vraag het aantal artikelen en de totaalprijs op. Tel deze gegevens op bij de controletotalen
-     * die voor de kassa worden bijgehouden. De implementatie wordt later vervangen door een echte
-     * betaling door de persoon.
+     * Vraag het aantal artikelen en de totaalprijs op. 
+     * Tel deze gegevens op bij de controletotalen die voor de kassa worden bijgehouden.
+     * De implementatie wordt later vervangen door een echte betaling door de persoon.
      *
      * @param klant die moet afrekenen
      */
     public void rekenAf(Dienblad klant) {
-        // method body omitted
+        aantalArtikelen=klant.getAantalArtikelen();
+        totaalPrijs=klant.getTotaalPrijs();
+        System.out.println("Aantal artikelen: " + aantalArtikelen);
+        System.out.println("Totaalprijs: " + totaalPrijs);
     }
 
     /**
@@ -27,24 +34,24 @@ public class Kassa {
      * @return aantal artikelen
      */
     public int aantalArtikelen() {
-        // method body omitted
+        return aantalArtikelen;
     }
 
     /**
-     * Geeft het totaalbedrag van alle artikelen die de kass zijn gepasseerd, vanaf het moment dat
+     * Geeft het totaalbedrag van alle artikelen die de kassa zijn gepasseerd, vanaf het moment dat
      * de methode resetKassa is aangeroepen.
      *
-     * @return hoeveelheid geld in de kassa
+     * @return Hoeveelheid geld dat betaald moet worden aan de kassa.
      */
     public double hoeveelheidGeldInKassa() {
-        // method body omitted
+        return totaalPrijs;
     }
 
     /**
-     * reset de waarden van het aantal gepasseerde artikelen en de totale hoeveelheid geld in de
-     * kassa.
+     * Reset de waarden van het aantal gepasseerde artikelen en de totale hoeveelheid geld in de kassa.
      */
     public void resetKassa() {
-        // method body omitted
+        totaalPrijs=0.0;
+        aantalArtikelen=0;
     }
 }
