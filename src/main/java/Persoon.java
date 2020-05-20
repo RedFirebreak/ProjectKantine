@@ -26,7 +26,7 @@ public class Persoon {
      * Maak een leeg persoon aan.
      */
     public Persoon() {
-        geslacht = 'F';
+        geslacht = 'O';
         geboorteDatum = new Datum();
     }
 
@@ -150,7 +150,7 @@ public class Persoon {
         if (geslacht == 'M' || geslacht == 'V') {
             this.geslacht = geslacht;
         } else {
-            this.geslacht = 'F';
+            this.geslacht = 'O';
             System.out.println(
                     "Dit is niet een geldig geslacht, we doen hier alleen maar aan 2 geslachten, M (man) en V (vrouw).");
         }
