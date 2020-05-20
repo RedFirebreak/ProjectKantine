@@ -18,7 +18,7 @@ public class Dienblad {
      */
     public Dienblad() {
         Datum datum = new Datum(1, 1, 1900);
-        klant = new Persoon(0, "Leeg", "Leegerd", datum, 'F');
+        klant = new Persoon(0, "Leeg", "Leegerd", datum, 'O');
     }
 
     /**
@@ -54,12 +54,7 @@ public class Dienblad {
      * @return Het aantal artikelen.
      */
     public int getAantalArtikelen() {
-        Iterator<Artikel> iterator = artikelen.iterator();
-        int aantalArtikelen = 0;
-        while (iterator.hasNext()) {
-            aantalArtikelen++;
-        }
-        return aantalArtikelen;
+        return artikelen.size();
     }
 
     /**

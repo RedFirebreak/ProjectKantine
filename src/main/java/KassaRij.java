@@ -28,7 +28,7 @@ public class KassaRij {
      * @return Eerste klant in de rij of null
      */
     public Dienblad eerstePersoonInRij() {
-        if (wachtRij.get(0) == null) {
+        if (erIsEenRij()) {
             return null;
         } else {
             Dienblad eerstePersoonInRij = wachtRij.get(0);
@@ -43,10 +43,6 @@ public class KassaRij {
      * @return Of er wel of geen rij bestaat
      */
     public boolean erIsEenRij() {
-        boolean erIsEenRij = false;
-        if (wachtRij.size() > 0) {
-            erIsEenRij = true;
-        }
-        return erIsEenRij;
+        return !wachtRij.isEmpty();
     }
 }
