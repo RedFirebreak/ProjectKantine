@@ -71,8 +71,8 @@ public class Datum {
 			return false;
 		}
 
-		// Check maanden die niet meer dan 30 dagen hebben.
-		if (maand == 4 && dag > 30 || maand == 6 && dag > 30 || maand == 9 && dag > 30 || maand == 11 && dag > 30) {
+		// Check maanden die niet meer dan 30 dagen hebben. maan ==4 || maand||6 ... && dag>30
+		if ((maand == 4 || maand == 6 || maand == 9 || maand == 11) && dag > 30) {
 			return false;
 		}
 
@@ -88,7 +88,7 @@ public class Datum {
 
 		// In een jaar dat deelbaar is door 100, is het geen schrikkeljaar. Maar door
 		// 400 wel.
-		if (maand == 2 && dag == 29 && jaar % 4 == 0 && jaar % 100 == 0 && jaar % 400 == 0) {
+		if (maand == 2 && dag == 29 && jaar % 4 == 0 && jaar % 400 == 0) {
 			return true;
 		}
 

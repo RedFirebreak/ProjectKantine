@@ -9,7 +9,7 @@ public class KassaRij {
      * Constructor
      */
     public KassaRij() {
-        // method body omitted TODO DOCENT
+
     }
 
     /**
@@ -31,8 +31,7 @@ public class KassaRij {
         if (erIsEenRij()) {
             return null;
         } else {
-            Dienblad eerstePersoonInRij = wachtRij.get(0);
-            wachtRij.remove(0); // TODO Check of 0 bestaat na verwijderen (zoals een stack)
+            Dienblad eerstePersoonInRij = wachtRij.remove(0);
             return eerstePersoonInRij;
         }
     }
