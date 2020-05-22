@@ -1,5 +1,3 @@
-import java.util.Iterator;
-
 public class Kassa {
 
     KassaRij kassaRij = new KassaRij();
@@ -7,7 +5,9 @@ public class Kassa {
     int aantalArtikelen = 0;
 
     /**
-     * Constructor
+     * Constructor.
+     * 
+     * @param kassaRij De kassaRij die bij de kassa hoort.
      */
     public Kassa(KassaRij kassaRij) {
         this.kassaRij = kassaRij;
@@ -25,6 +25,7 @@ public class Kassa {
         totaalPrijs += klant.getTotaalPrijs();
         System.out.println("Aantal artikelen: " + klant.getAantalArtikelen());
         System.out.println("Totaalprijs: " + klant.getTotaalPrijs());
+        //TODO klant uit kassaRij verwijderen?
     }
 
     /**

@@ -1,9 +1,8 @@
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class KassaRij {
 
-    ArrayList<Dienblad> wachtRij = new ArrayList<Dienblad>();
+    LinkedList<Dienblad> wachtRij = new LinkedList<Dienblad>();
 
     /**
      * Constructor
@@ -28,11 +27,10 @@ public class KassaRij {
      * @return Eerste klant in de rij of null
      */
     public Dienblad eerstePersoonInRij() {
-        if (erIsEenRij()) {
+        if (!erIsEenRij()) {
             return null;
         } else {
-            Dienblad eerstePersoonInRij = wachtRij.remove(0);
-            return eerstePersoonInRij;
+            return wachtRij.remove(0);
         }
     }
 

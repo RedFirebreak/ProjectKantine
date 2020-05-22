@@ -1,15 +1,17 @@
-import java.util.ArrayList;
+import java.util.Stack;
 import java.util.Iterator;
 
 public class Dienblad {
-    private ArrayList<Artikel> artikelen;
-    private Persoon klant = new Persoon();
+    private Stack<Artikel> artikelen;
+    private Persoon klant;
 
     /**
      * Maak een dienblad aan, hieraan wordt een klant gekoppeld van de klasse
      * Persoon.
      */
     public Dienblad(Persoon klant) {
+        artikelen = new Stack<Artikel>();
+        klant = new Persoon();
         this.klant = klant;
     }
 

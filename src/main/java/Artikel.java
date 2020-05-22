@@ -1,6 +1,6 @@
 public class Artikel {
     private String naam;
-    private double prijs; // kan ook float, gebruikt minder memory.
+    private double prijs;
 
     // Initialisatie = de instantievariabelen initialiseren, dat wil zeggen dat je
     // ze laat bestaan (hierboven gedaan)
