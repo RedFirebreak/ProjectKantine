@@ -2,7 +2,7 @@ public class Persoon {
     private int BSN;
     private String voornaam;
     private String achternaam;
-    private Datum geboorteDatum = new Datum();
+    private Datum geboorteDatum;
     private char geslacht;
 
     /**
