@@ -38,13 +38,23 @@ public class KantineSimulatie2 {
      * Constructor
      *
      */
-    public KantineSimulatie2() {
+    public KantineSimulatie2(int dagen) {
+        // Maak een nieuwe kantine aan, de "hoofd" klase
         kantine = new Kantine();
+
+        // Zet een ranomizer klaar
         random = new Random();
+        // Bepaal het aantal hoeveelheden van elk aspect. Gebruikend de nieuwe
+        // getRandomArray();
         int[] hoeveelheden = getRandomArray(AANTAL_ARTIKELEN, MIN_ARTIKELEN_PER_SOORT, MAX_ARTIKELEN_PER_SOORT);
+
+        // Maak een nieuw kantineaanbod aan
         kantineaanbod = new KantineAanbod(artikelnamen, artikelprijzen, hoeveelheden);
 
+        // Verwerk het kantineaanbod in de kantine.
         kantine.setKantineAanbod(kantineaanbod);
+
+        simuleer(dagen);
     }
 
     /**
@@ -73,6 +83,7 @@ public class KantineSimulatie2 {
      * @return Een random getal
      */
     private int getRandomValue(int min, int max) {
+        // Omdat er misschien "0" klanten kunnen zijn, doen we +1.
         return random.nextInt(max - min + 1) + min;
     }
 
@@ -101,44 +112,49 @@ public class KantineSimulatie2 {
      */
     public void simuleer(int dagen) {
         // for lus voor dagen
-        for (int i = 0; i < dagen; i++) {
+        for (int i = 1; i < dagen + 1; i++) {
+            System.out.println("-------------------------");
+            System.out.println("Dag: " + i);
 
             // bedenk hoeveel personen vandaag binnen lopen
-            int aantalpersonen = 5; // FIX
+            int aantalpersonen = getRandomValue(MIN_PERSONEN_PER_DAG, MAX_PERSONEN_PER_DAG);
 
             // laat de personen maar komen...
             for (int j = 0; j < aantalpersonen; j++) {
+                Datum datum = new Datum(23, 3, 1997); // Randomizer datum?
+                char geslacht = 'M'; // randomizer M of V
+                Persoon klantinwinkel = new Persoon(j, "Stefan", "Jilderda", datum, geslacht);
 
                 // maak persoon en dienblad aan, koppel ze
+                Dienblad dienbladvanklant = new Dienblad(klantinwinkel);
+                dienbladvanklant.setKlant(klantinwinkel);
+
                 // en bedenk hoeveel artikelen worden gepakt
-                int aantalartikelen = 5; // FIX
+                int aantalartikelen = getRandomValue(MIN_ARTIKELEN_PER_PERSOON, MAX_ARTIKELEN_PER_PERSOON); // FIX
 
                 // genereer de "artikelnummers", dit zijn indexen
                 // van de artikelnamen
-
-                // TODO array int[] breaks it...
-                // array int[] tepakken = getRandomArray( aantalartikelen, 0,
-                // AANTAL_ARTIKELEN-1);
+                int[] tepakken = getRandomArray(aantalartikelen, 0, AANTAL_ARTIKELEN - 1);
 
                 // vind de artikelnamen op basis van
                 // de indexen hierboven
-
-                // TODO tepakken is een to-do. Dit dus ook.
-                // String[] artikelen = geefArtikelNamen(tepakken);
+                String[] artikelen = geefArtikelNamen(tepakken);
 
                 // loop de kantine binnen, pak de gewenste
                 // artikelen, sluit aan
-
+                kantine.loopPakSluitAan(dienbladvanklant, artikelen);
             }
 
-            // verwerk rij voor de kassa
+            // Verwerk rij voor de kassa
+            kantine.verwerkRijVoorKassa();
 
-            // druk de dagtotalen af en hoeveel personen binnen
-
-            // zijn gekomen
+            // druk de dagtotalen af en hoeveel personen binnen zijn gekomen
+            System.out.println("Aantal klanten:" + aantalpersonen);
+            System.out.println("Aantal artikelen:" + kantine.getAantalArtikelen());
+            System.out.println("Totaalbedrag:" + kantine.getTotaalbedrag());
 
             // reset de kassa voor de volgende dag
-
+            kantine.resetKassa();
         }
     }
 }

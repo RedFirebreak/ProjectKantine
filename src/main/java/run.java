@@ -1,7 +1,7 @@
 public class run {
 
     public static final int DAGEN = 7; // 'Default' aantal dagen
-    public static KantineSimulatie1 simulatie; // De opgeslagen KantineSimulatie
+    public static KantineSimulatie2 simulatie; // De opgeslagen KantineSimulatie
 
     /**
      * Start de simulatie https://shorturl.at/hCDKR
@@ -15,9 +15,10 @@ public class run {
             tempdagen = Integer.parseInt(args[0]);
         }
 
-        simulatie = new KantineSimulatie1(tempdagen);
+        simulatie = new KantineSimulatie2(tempdagen);
 
         // test print to confirm run
+        System.out.println("");
         System.out.println("[EXIT] Kantine has run and finished without crashing. Exiting program.");
     }
 }

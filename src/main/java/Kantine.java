@@ -6,62 +6,85 @@ public class Kantine {
     private int aantalArtikelen;
     private KantineAanbod kantineAanbod;
 
+    // artikelen
+    private String[] artikelnamen = new String[] { "Koffie", "Broodje pindakaas", "Broodje kaas", "Appelsap" };
+
+    // prijzen
+    private double[] artikelprijzen = new double[] { 1.50, 2.10, 1.65, 1.65 };
+
+    // maxaantallen
+    private int[] hoeveelheden = new int[] { 10000, 15000, 2000, 12000 };
+
     /**
-     * Constructor, zet de waarden voor de kassa op 0 en maak een kassa en een rij aan.
+     * Constructor, zet de waarden voor de kassa op 0 en maak een kassa en een rij
+     * aan.
      */
     public Kantine() {
+        // Maak een aanbod artikelen
+        kantineAanbod = new KantineAanbod(artikelnamen, artikelprijzen, hoeveelheden);
+
+        // Zet de kassa op 0
         resetKassa();
+
+        // Maak een kassarij aan
         kassaRij = new KassaRij();
+
+        // Maak een kassa aan
         kassa = new Kassa(kassaRij);
     }
 
     /**
      * In deze methode wordt een dienblad met artikelen in de kassarij geplaatst.
      * 
-     * @param dienblad Het dienblad waar producten aan toegevoegd worden.
-     * @param artikelnamen Een lijst van artikelen die aan het dienblad toegevoegd moeten worden.
+     * @param dienblad     Het dienblad waar producten aan toegevoegd worden.
+     * @param artikelnamen Een lijst van artikelen die aan het dienblad toegevoegd
+     *                     moeten worden.
      */
     public void loopPakSluitAan(Dienblad dienblad, String[] artikelnamen) {
-        for(int i = 0; i < artikelnamen.length; i++) {
+        for (int i = 0; i < artikelnamen.length; i++) {
             dienblad.voegToe(kantineAanbod.getArtikel(artikelnamen[i]));
         }
         kassaRij.sluitAchteraan(dienblad);
     }
 
     /**
-     * Deze methode handelt de rij voor de kassa af.
-     * Het is handiger om een while-loop te doen dan een for-loop omdat we een methode isErEenRij is.
+     * Deze methode handelt de rij voor de kassa af. Het is handiger om een
+     * while-loop te doen dan een for-loop omdat we een methode isErEenRij is.
      */
     public void verwerkRijVoorKassa() {
         while (kassaRij.erIsEenRij()) {
-            totaalBedrag += kassaRij.eerstePersoonInRij().getTotaalPrijs();
-            aantalArtikelen += kassaRij.eerstePersoonInRij().getAantalArtikelen();
-            kassa.rekenAf(kassaRij.eerstePersoonInRij());
+            Dienblad eerstePersoonDienblad = kassaRij.eerstePersoonInRij(); // rij vgm...
+
+            totaalBedrag += kassa.getTotaalPrijs(eerstePersoonDienblad);
+            aantalArtikelen += kassa.getAantalArtikelen();
+
+            kassa.rekenAf(eerstePersoonDienblad);
         }
-        //TODO lijkt me weinig.. maar maybe goed.
     }
 
     /**
-     * Deze methode telt hoeveel geld er in de kassa zit.
-     * TODO docent: totaal voor altijd of per dag?
+     * Deze methode telt hoeveel geld er in de kassa zit TODO docent: totaal voor
+     * altijd of per dag?
+     * 
      * @return De hoeveelheid geld in de kassa.
      */
-    public double hoeveelheidGeldInKassa() {
+    public double getTotaalbedrag() {
         return totaalBedrag;
     }
 
     /**
-     * Deze methode geeft het aantal gepasseerde artikelen.
-     * TODO docent: aantal voor altijd of per dag?
+     * Deze methode geeft het aantal gepasseerde artikelen TODO docent: aantal voor
+     * altijd of per dag?
+     * 
      * @return Het aantal gepasseerde artikelen.
      */
-    public int aantalArtikelen() {
-        return aantalArtikelen;
+    public int getAantalArtikelen() {
+        return kassa.aantalArtikelen();
     }
 
     /**
-     * Deze methode reset de bijgehouden telling van het aantal artikelen en "leegt" de inhoud van
-     * de kassa.
+     * Deze methode reset de bijgehouden telling van het aantal artikelen en "leegt"
+     * de inhoud van de kassa.
      */
     public void resetKassa() {
         totaalBedrag = 0.0;

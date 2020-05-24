@@ -21,6 +21,7 @@ public class KantineSimulatie1 {
 
         // herhaal voor elke dag
         for (i = 1; i <= dagen; i++) {
+            System.out.println("-----------------");
             System.out.println("Dag: " + i);
 
             // per dag nu even vast 10 + i personen naar binnen
@@ -28,14 +29,31 @@ public class KantineSimulatie1 {
 
             // for lus voor personen
             for (int j = 0; j < 10 + i; j++) {
-                // kantine.(...);
+                // make new persoon
+                // TODO arraylist met persoon namenm datum, geslacht (randomizer)?
+                Datum datum = new Datum(23, 3, 1997); // Randomizer datum?
+                char geslacht = 'M'; // randomizer M of V
+                Persoon klantinwinkel = new Persoon(j, "Stefan", "Jilderda", datum, geslacht);
+
+                // laat persoon een dienblad pakken
+                Dienblad dienbladvanklant = new Dienblad(klantinwinkel);
+
+                // Pak een aanbod artikelen HARDCODED OM TE LATEN WERKEN
+                String[] artikelnamen = new String[] { "Koffie" };
+
+                // sluit aan aan rij
+                kantine.loopPakSluitAan(dienbladvanklant, artikelnamen);
             }
 
             // verwerk rij voor de kassa
+            kantine.verwerkRijVoorKassa();
 
             // toon dagtotalen (artikelen en geld in kassa)
+            System.out.println("Artikelen:" + kantine.getAantalArtikelen());
+            System.out.println("Totaalbedrag:" + kantine.getTotaalbedrag());
 
             // reset de kassa voor de volgende dag
+            kantine.resetKassa();
 
         } // end for loop
 

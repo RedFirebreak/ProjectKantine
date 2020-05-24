@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Kassa {
 
     KassaRij kassaRij = new KassaRij();
@@ -18,14 +20,12 @@ public class Kassa {
      * controletotalen die voor de kassa worden bijgehouden. De implementatie wordt
      * later vervangen door een echte betaling door de persoon.
      *
-     * @param klant die moet afrekenen
+     * @param dienblad die moet afrekenen
      */
-    public void rekenAf(Dienblad klant) {
-        aantalArtikelen += klant.getAantalArtikelen();
-        totaalPrijs += klant.getTotaalPrijs();
-        System.out.println("Aantal artikelen: " + klant.getAantalArtikelen());
-        System.out.println("Totaalprijs: " + klant.getTotaalPrijs());
-        //TODO klant uit kassaRij verwijderen?
+    public void rekenAf(Dienblad dienblad) {
+        Stack<Artikel> artikelen = dienblad.getArtikelen();
+        aantalArtikelen += artikelen.size();
+        totaalPrijs += getTotaalPrijs(dienblad);
     }
 
     /**
@@ -55,5 +55,29 @@ public class Kassa {
     public void resetKassa() {
         totaalPrijs = 0.0;
         aantalArtikelen = 0;
+    }
+
+    /**
+     * Methode om aantal artikelen op dienblad te tellen.
+     *
+     * @return Het aantal artikelen.
+     */
+    public int getAantalArtikelen() {
+        return aantalArtikelen;
+    }
+
+    /**
+     * Methode om de totaalprijs van de artikelen op dienblad uit te rekenen.
+     *
+     * @return De totaalprijs.
+     */
+    public Double getTotaalPrijs(Dienblad artikelen) {
+        Stack<Artikel> artikelstack = artikelen.getArtikelen();
+        Double totaal = 0.0;
+        Iterator<Artikel> iterator = artikelstack.iterator();
+        while (iterator.hasNext()) {
+            totaal += ((Artikel) iterator.next()).getPrijs();
+        }
+        return totaal;
     }
 }

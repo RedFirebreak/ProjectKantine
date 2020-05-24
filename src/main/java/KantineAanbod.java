@@ -11,7 +11,7 @@ public class KantineAanbod {
      * Constructor, de dimenties van deze arrays moeten gelijk zijn.
      * 
      * @param artikelnaam Een array met artikelnamen.
-     * @param prijs Een array met prijzen.
+     * @param prijs       Een array met prijzen.
      * @param hoeveelheid Een array met hoeveelheden.
      */
     public KantineAanbod(String[] artikelnaam, double[] prijs, int[] hoeveelheid) {
@@ -46,20 +46,23 @@ public class KantineAanbod {
     }
 
     /**
-     * Private methode om de lijst van artikelen te krijgen op basis van de naam van het artikel.
+     * Private methode om de lijst van artikelen te krijgen op basis van de naam van
+     * het artikel.
      * 
-     * @param productnaam Het artikel om  een lijst van te krijgen.
-     * @return Een ArrayList met artikelen erin die overeenkomen met de productnaam, of null als het artikel niet bestaat.
+     * @param productnaam Het artikel om een lijst van te krijgen.
+     * @return Een ArrayList met artikelen erin die overeenkomen met de productnaam,
+     *         of null als het artikel niet bestaat.
      */
     private ArrayList<Artikel> getArrayList(String productnaam) {
         return aanbod.get(productnaam);
     }
 
     /**
-     * Private methode om een Artikel van de stapel artikelen af te pakken. 
+     * Private methode om een Artikel van de stapel artikelen af te pakken.
      * 
      * @param stapel De stapel om een artikel af te pakken.
-     * @return Het eerste artikel uit de ArrayList stapel, of null als de stapel leeg is.
+     * @return Het eerste artikel uit de ArrayList stapel, of null als de stapel
+     *         leeg is.
      */
     private Artikel getArtikel(ArrayList<Artikel> stapel) {
         if (stapel == null) {
@@ -77,8 +80,8 @@ public class KantineAanbod {
     }
 
     /**
-     * Publieke methode om een artikel via naam van de stapel te pakken. 
-     * Retouneert null als artikel niet bestaat of niet op voorraad is.
+     * Publieke methode om een artikel via naam van de stapel te pakken. Retouneert
+     * null als artikel niet bestaat of niet op voorraad is.
      *
      * @param naam De naam van het artikel.
      * @return Het Artikel, of null.
@@ -87,8 +90,12 @@ public class KantineAanbod {
         return getArtikel(getArrayList(productnaam));
     }
 
-    //Antwoorden voor pdf:
-    //5a: Deze 2 methodes worden gebruik voor Artikel getArtikel(String productnaam). Verder zijn deze methodes niet nuttig buiten deze klasse, dus het is nutteloos omdeze public te maken.
-    //5b: Een HashMap gebruik je als je meerdere values van hetzelfde soort wil. Deze kunnen dan op verschillende keys staan en er komen geen errors.
-    //Een HashSet is handig als je alleen unieke values wil. Hierin kan je geen meerdere values van hetzelfde soort, dan komen er errors.
+    // Antwoorden voor pdf:
+    // 5a: Deze 2 methodes worden gebruik voor Artikel getArtikel(String
+    // productnaam). Verder zijn deze methodes niet nuttig buiten deze klasse, dus
+    // het is nutteloos omdeze public te maken.
+    // 5b: Een HashMap gebruik je als je meerdere values van hetzelfde soort wil.
+    // Deze kunnen dan op verschillende keys staan en er komen geen errors.
+    // Een HashSet is handig als je alleen unieke values wil. Hierin kan je geen
+    // meerdere values van hetzelfde soort, dan komen er errors.
 }
