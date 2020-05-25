@@ -1,5 +1,6 @@
 import java.sql.Array;
 import java.util.*;
+import java.text.DecimalFormat;
 
 public class KantineSimulatie2 {
 
@@ -92,7 +93,7 @@ public class KantineSimulatie2 {
      * bijhorende array van artikelnamen te maken
      *
      * @param indexen
-     * @return De array met artikelnamen
+     * @return De array met artikelnamen.
      */
     private String[] geefArtikelNamen(int[] indexen) {
         String[] artikelen = new String[indexen.length];
@@ -108,40 +109,37 @@ public class KantineSimulatie2 {
     /**
      * Deze methode simuleert een aantal dagen in het verloop van de kantine
      *
-     * @param dagen
+     * @param dagen De hoeveelheid dagen die je wilt simuleren.
      */
     public void simuleer(int dagen) {
-        // for lus voor dagen
+        // For lus voor dagen
         for (int i = 1; i < dagen + 1; i++) {
             System.out.println("-------------------------");
             System.out.println("Dag: " + i);
 
-            // bedenk hoeveel personen vandaag binnen lopen
+            // Bedenk hoeveel personen vandaag binnen lopen
             int aantalpersonen = getRandomValue(MIN_PERSONEN_PER_DAG, MAX_PERSONEN_PER_DAG);
 
-            // laat de personen maar komen...
+            // Laat de personen maar komen...
             for (int j = 0; j < aantalpersonen; j++) {
                 Datum datum = new Datum(23, 3, 1997); // Randomizer datum?
-                char geslacht = 'M'; // randomizer M of V
+                char geslacht = 'M'; // randomizer M of V?
                 Persoon klantinwinkel = new Persoon(j, "Stefan", "Jilderda", datum, geslacht);
 
-                // maak persoon en dienblad aan, koppel ze
+                // Maak persoon en dienblad aan, koppel ze
                 Dienblad dienbladvanklant = new Dienblad(klantinwinkel);
                 dienbladvanklant.setKlant(klantinwinkel);
 
-                // en bedenk hoeveel artikelen worden gepakt
+                // Bedenk hoeveel artikelen worden gepakt
                 int aantalartikelen = getRandomValue(MIN_ARTIKELEN_PER_PERSOON, MAX_ARTIKELEN_PER_PERSOON); // FIX
 
-                // genereer de "artikelnummers", dit zijn indexen
-                // van de artikelnamen
-                int[] tepakken = getRandomArray(aantalartikelen, 0, AANTAL_ARTIKELEN - 1);
+                // Genereer de "artikelnummers", dit zijn indexen van de artikelnamen
+                int[] tePakken = getRandomArray(aantalartikelen, 0, AANTAL_ARTIKELEN - 1);
 
-                // vind de artikelnamen op basis van
-                // de indexen hierboven
-                String[] artikelen = geefArtikelNamen(tepakken);
+                // Vind de artikelnamen op basis van de indexen hierboven
+                String[] artikelen = geefArtikelNamen(tePakken);
 
-                // loop de kantine binnen, pak de gewenste
-                // artikelen, sluit aan
+                // Loop de kantine binnen, pak de gewenste artikelen en sluit aan
                 kantine.loopPakSluitAan(dienbladvanklant, artikelen);
             }
 
@@ -149,9 +147,10 @@ public class KantineSimulatie2 {
             kantine.verwerkRijVoorKassa();
 
             // druk de dagtotalen af en hoeveel personen binnen zijn gekomen
+            DecimalFormat afgerond = new DecimalFormat("##.00");
             System.out.println("Aantal klanten:" + aantalpersonen);
             System.out.println("Aantal artikelen:" + kantine.getAantalArtikelen());
-            System.out.println("Totaalbedrag:" + kantine.getTotaalbedrag());
+            System.out.println("Totaalbedrag:" + afgerond.format(kantine.getTotaalbedrag()));
 
             // reset de kassa voor de volgende dag
             kantine.resetKassa();
