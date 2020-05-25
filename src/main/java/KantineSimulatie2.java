@@ -21,6 +21,8 @@ public class KantineSimulatie2 {
 
     // prijzen
     private static double[] artikelprijzen = new double[] { 1.50, 2.10, 1.65, 1.65 };
+    // TODO DOCENT wat.
+    // private static double[] artikelprijzen = new double[] { 1.0, 2.0, 1.0, 1.0 };
 
     // minimum en maximum aantal artikelen per soort
     private static final int MIN_ARTIKELEN_PER_SOORT = 10000;

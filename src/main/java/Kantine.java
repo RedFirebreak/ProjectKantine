@@ -2,8 +2,6 @@ public class Kantine {
 
     private Kassa kassa;
     private KassaRij kassaRij;
-    private double totaalBedrag;
-    private int aantalArtikelen;
     private KantineAanbod kantineAanbod;
 
     // artikelen
@@ -23,14 +21,15 @@ public class Kantine {
         // Maak een aanbod artikelen
         kantineAanbod = new KantineAanbod(artikelnamen, artikelprijzen, hoeveelheden);
 
-        // Zet de kassa op 0
-        resetKassa();
-
         // Maak een kassarij aan
+        // TODO DOCENT kassarij later nog nodig? Anders samen met kassa.
         kassaRij = new KassaRij();
 
         // Maak een kassa aan
         kassa = new Kassa(kassaRij);
+
+        // Zet de kassa op 0
+        kassa.resetKassa();
     }
 
     /**
@@ -55,8 +54,8 @@ public class Kantine {
         while (kassaRij.erIsEenRij()) {
             Dienblad eerstePersoonDienblad = kassaRij.eerstePersoonInRij(); // rij vgm...
 
-            totaalBedrag += kassa.getTotaalPrijs(eerstePersoonDienblad);
-            aantalArtikelen += kassa.getAantalArtikelen();
+            // totaalBedrag += kassa.getTotaalPrijs(eerstePersoonDienblad);
+            // aantalArtikelen += kassa.getAantalArtikelen();
 
             kassa.rekenAf(eerstePersoonDienblad);
         }
@@ -69,7 +68,7 @@ public class Kantine {
      * @return De hoeveelheid geld in de kassa.
      */
     public double getTotaalbedrag() {
-        return totaalBedrag;
+        return kassa.hoeveelheidGeldInKassa();
     }
 
     /**
@@ -83,12 +82,10 @@ public class Kantine {
     }
 
     /**
-     * Deze methode reset de bijgehouden telling van het aantal artikelen en "leegt"
-     * de inhoud van de kassa.
+     * Zet de kassa op 0.
      */
     public void resetKassa() {
-        totaalBedrag = 0.0;
-        aantalArtikelen = 0;
+        kassa.resetKassa();
     }
 
     /**
