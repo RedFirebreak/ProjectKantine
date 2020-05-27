@@ -40,13 +40,13 @@ public class KantineSimulatie2 {
     /**
      * Constructor
      */
-    public KantineSimulatie2(int dagen) {
+    public KantineSimulatie2() {
         // Maak een nieuwe kantine aan, de "hoofd" klasse.
         kantine = new Kantine();
 
         // Zet een randomizer klaar.
         random = new Random();
-        // Bepaal het aantal hoeveelheden van elk aspect. 
+        // Bepaal het aantal hoeveelheden van elk aspect.
         // Gebruikt de nieuwe getRandomArray();.
         int[] hoeveelheden = getRandomArray(AANTAL_ARTIKELEN, MIN_ARTIKELEN_PER_SOORT, MAX_ARTIKELEN_PER_SOORT);
 
@@ -55,23 +55,20 @@ public class KantineSimulatie2 {
 
         // Verwerk het kantineaanbod in de kantine.
         kantine.setKantineAanbod(kantineaanbod);
-
-        // Start de simulatie.
-        simuleer(dagen);
     }
 
     /**
-     * Methode om een array van random getallen te genereren.
-     * De getallen liggen tussen min en max (inclusief).
+     * Methode om een array van random getallen te genereren. De getallen liggen
+     * tussen min en max (inclusief).
      * 
      * @param lengte De gegeven lengte van de array.
      * @param min    Minimale waarde die in de array mag.
      * @param max    Maximale waarde die in de array mag.
-     * @return       De array met random getallen.
+     * @return De array met random getallen.
      */
     private int[] getRandomArray(int lengte, int min, int max) {
         int[] temp = new int[lengte];
-        
+
         for (int i = 0; i < lengte; i++) {
             temp[i] = getRandomValue(min, max);
         }
@@ -84,19 +81,19 @@ public class KantineSimulatie2 {
      * 
      * @param min De minimumwaarde.
      * @param max De maximumwaarde.
-     * @return    Het random gegenereerde getal.
+     * @return Het random gegenereerde getal.
      */
     private int getRandomValue(int min, int max) {
         // Omdat er misschien "0" klanten kunnen zijn, doen we +1.
-        return random.nextInt(max - min + 1) + min; //TODO Jilderda waarom + min?
+        return random.nextInt(max - min + 1) + min; // TODO Jilderda waarom + min?
     }
 
     /**
-     * Methode om op basis van een gegeven array van indexen voor de array 
+     * Methode om op basis van een gegeven array van indexen voor de array
      * artikelnamen de bijhorende array van artikelnamen te maken.
      * 
      * @param indexen De array met gegeven indexen.
-     * @return        De array met artikelnamen.
+     * @return De array met artikelnamen.
      */
     private String[] geefArtikelNamen(int[] indexen) {
         String[] artikelen = new String[indexen.length];
@@ -126,7 +123,8 @@ public class KantineSimulatie2 {
             for (int j = 0; j < aantalPersonen; j++) {
                 Datum datum = new Datum(23, 3, 1997); // TODO Randomizer datum?
                 char geslacht = 'M'; // TODO Randomizer M of V?
-                Persoon klantInWinkel = new Persoon(j, "Stefan", "Jilderda", datum, geslacht); // TODO Randomizer persoon?
+                Persoon klantInWinkel = new Persoon(j, "Stefan", "Jilderda", datum, geslacht); // TODO Randomizer
+                                                                                               // persoon?
 
                 // Maak persoon en dienblad aan, koppel ze aan elkaar.
                 Dienblad dienbladVanKlant = new Dienblad(klantInWinkel);

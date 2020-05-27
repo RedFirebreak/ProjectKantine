@@ -15,7 +15,10 @@ public class run {
             tempdagen = Integer.parseInt(args[0]);
         }
 
-        simulatie = new KantineSimulatie2(tempdagen);
+        simulatie = new KantineSimulatie2();
+
+        // Start de simulatie.
+        simulatie.simuleer(tempdagen);
 
         // test print to confirm run
         System.out.println("");
