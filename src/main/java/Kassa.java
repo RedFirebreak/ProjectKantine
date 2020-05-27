@@ -20,7 +20,7 @@ public class Kassa {
      * controletotalen die voor de kassa worden bijgehouden. De implementatie wordt
      * later vervangen door een echte betaling door de persoon.
      *
-     * @param dienblad die moet afrekenen
+     * @param dienblad Die moet afrekenen.
      */
     public void rekenAf(Dienblad dienblad) {
         Stack<Artikel> artikelen = dienblad.getArtikelen();
@@ -32,7 +32,7 @@ public class Kassa {
      * Geeft het aantal artikelen dat de kassa heeft gepasseerd, vanaf het moment
      * dat de methode resetWaarden is aangeroepen.
      *
-     * @return aantal artikelen
+     * @return Het aantal artikelen dat door de kassa is gekomen.
      */
     public int aantalArtikelen() {
         return aantalArtikelen;
@@ -72,9 +72,8 @@ public class Kassa {
      * @return De totaalprijs.
      */
     public Double getTotaalPrijs(Dienblad artikelen) {
-        Stack<Artikel> artikelstack = artikelen.getArtikelen();
         Double totaal = 0.0;
-        Iterator<Artikel> iterator = artikelstack.iterator();
+        Iterator<Artikel> iterator = artikelen.getArtikelen().iterator();
         while (iterator.hasNext()) {
             totaal += ((Artikel) iterator.next()).getPrijs();
         }
