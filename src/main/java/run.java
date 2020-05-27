@@ -7,18 +7,18 @@ public class run {
      * Start de simulatie https://shorturl.at/hCDKR
      */
     public static void main(String[] args) {
-        int tempdagen = 0;
+        int tempDagen = 0;
 
         if (args.length == 0) {
-            tempdagen = DAGEN;
+            tempDagen = DAGEN;
         } else {
-            tempdagen = Integer.parseInt(args[0]);
+            tempDagen = Integer.parseInt(args[0]);
         }
 
         simulatie = new KantineSimulatie2();
 
         // Start de simulatie.
-        simulatie.simuleer(tempdagen);
+        simulatie.simuleer(tempDagen);
 
         // test print to confirm run
         System.out.println("");

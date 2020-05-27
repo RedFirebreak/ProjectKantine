@@ -17,7 +17,7 @@ public class Kantine {
         // Maak een aanbod artikelen
         kantineAanbod = new KantineAanbod(artikelnamen, artikelprijzen, hoeveelheden);
 
-        // Maak een kassarij aann
+        // Maak een kassarij aan
         kassaRij = new KassaRij();
 
         // Maak een kassa aan
@@ -57,7 +57,7 @@ public class Kantine {
     }
 
     /**
-     * Deze methode telt hoeveel geld er in de kassa zit
+     * Deze methode telt hoeveel geld er in de kassa zit.
      * 
      * @return De hoeveelheid geld in de kassa.
      */
@@ -66,7 +66,7 @@ public class Kantine {
     }
 
     /**
-     * Deze methode geeft het aantal gepasseerde artikelen
+     * Deze methode geeft het aantal gepasseerde artikelen.
      * 
      * @return Het aantal gepasseerde artikelen.
      */

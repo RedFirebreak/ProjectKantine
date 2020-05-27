@@ -1,6 +1,5 @@
 import java.sql.Array;
 import java.util.*;
-import java.text.DecimalFormat;
 
 public class KantineSimulatie2 {
 
@@ -8,7 +7,7 @@ public class KantineSimulatie2 {
     private Kantine kantine;
 
     // kantineaanbod
-    private KantineAanbod kantineaanbod;
+    private KantineAanbod kantineAanbod;
 
     // random generator
     private Random random;
@@ -49,10 +48,10 @@ public class KantineSimulatie2 {
         int[] hoeveelheden = getRandomArray(AANTAL_ARTIKELEN, MIN_ARTIKELEN_PER_SOORT, MAX_ARTIKELEN_PER_SOORT);
 
         // Maak een nieuw kantineaanbod aan.
-        kantineaanbod = new KantineAanbod(artikelnamen, artikelprijzen, hoeveelheden);
+        kantineAanbod = new KantineAanbod(artikelnamen, artikelprijzen, hoeveelheden);
 
         // Verwerk het kantineaanbod in de kantine.
-        kantine.setKantineAanbod(kantineaanbod);
+        kantine.setKantineAanbod(kantineAanbod);
     }
 
     /**
@@ -145,10 +144,9 @@ public class KantineSimulatie2 {
             kantine.verwerkRijVoorKassa();
 
             // druk de dagtotalen af en hoeveel personen binnen zijn gekomen.
-            DecimalFormat afgerond = new DecimalFormat("##.00"); // Om af te ronden op decimalen.
-            System.out.println("Aantal klanten:" + aantalPersonen);
-            System.out.println("Aantal artikelen:" + kantine.getAantalArtikelen());
-            System.out.println("Totaalbedrag:" + afgerond.format(kantine.getTotaalbedrag()));
+            System.out.println("Aantal klanten: " + aantalPersonen);
+            System.out.println("Aantal artikelen: " + kantine.getAantalArtikelen());
+            System.out.printf("Totaalbedrag: " + "%.2f%n",kantine.getTotaalbedrag());
 
             // reset de kassa voor de volgende dag.
             kantine.resetKassa();
