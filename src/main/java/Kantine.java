@@ -63,8 +63,7 @@ public class Kantine {
     }
 
     /**
-     * Deze methode telt hoeveel geld er in de kassa zit TODO docent: totaal voor
-     * altijd of per dag?
+     * Deze methode telt hoeveel geld er in de kassa zit TODO docent: totaal voor altijd of per dag?
      * 
      * @return De hoeveelheid geld in de kassa.
      */
@@ -73,8 +72,7 @@ public class Kantine {
     }
 
     /**
-     * Deze methode geeft het aantal gepasseerde artikelen TODO docent: aantal voor
-     * altijd of per dag?
+     * Deze methode geeft het aantal gepasseerde artikelen TODO docent: aantal voor altijd of per dag?
      * 
      * @return Het aantal gepasseerde artikelen.
      */

@@ -12,9 +12,9 @@ public class KantineSimulatie1 {
     }
 
     /**
-     * Deze methode simuleert een aantal dagen in het verloop van de kantine
+     * Deze methode simuleert een aantal dagen in het verloop van de kantine.
      *
-     * @param dagen
+     * @param dagen Hoeveel dagen te simuleren.
      */
     public void simuleer(int dagen) {
         int i;
@@ -30,7 +30,7 @@ public class KantineSimulatie1 {
             // for lus voor personen
             for (int j = 0; j < 10 + i; j++) {
                 // make new persoon
-                // TODO arraylist met persoon namenm datum, geslacht (randomizer)?
+                // TODO arraylist met persoon namen, datum, geslacht (randomizer)?
                 Datum datum = new Datum(23, 3, 1997); // Randomizer datum?
                 char geslacht = 'M'; // randomizer M of V
                 Persoon klantinwinkel = new Persoon(j, "Stefan", "Jilderda", datum, geslacht);
