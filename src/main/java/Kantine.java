@@ -4,13 +4,9 @@ public class Kantine {
     private KassaRij kassaRij;
     private KantineAanbod kantineAanbod;
 
-    // artikelen
-    private String[] artikelnamen = new String[] { "Koffie", "Broodje pindakaas", "Broodje kaas", "Appelsap" };
-
-    // prijzen
+    // Benodigd voor Simulatie1 // artikelen private String[] artikelnamen = new
+    private String[] artikelnamen = { "Koffie", "Broodje pindakaas", "Broodje kaas", "Appelsap" };
     private double[] artikelprijzen = new double[] { 1.50, 2.10, 1.65, 1.65 };
-
-    // maxaantallen
     private int[] hoeveelheden = new int[] { 10000, 15000, 2000, 12000 };
 
     /**
@@ -21,8 +17,7 @@ public class Kantine {
         // Maak een aanbod artikelen
         kantineAanbod = new KantineAanbod(artikelnamen, artikelprijzen, hoeveelheden);
 
-        // Maak een kassarij aan
-        // TODO DOCENT kassarij later nog nodig? Anders samen met kassa.
+        // Maak een kassarij aann
         kassaRij = new KassaRij();
 
         // Maak een kassa aan
@@ -62,7 +57,7 @@ public class Kantine {
     }
 
     /**
-     * Deze methode telt hoeveel geld er in de kassa zit TODO docent: totaal voor altijd of per dag?
+     * Deze methode telt hoeveel geld er in de kassa zit
      * 
      * @return De hoeveelheid geld in de kassa.
      */
@@ -71,7 +66,7 @@ public class Kantine {
     }
 
     /**
-     * Deze methode geeft het aantal gepasseerde artikelen TODO docent: aantal voor altijd of per dag?
+     * Deze methode geeft het aantal gepasseerde artikelen
      * 
      * @return Het aantal gepasseerde artikelen.
      */

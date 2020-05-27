@@ -22,8 +22,6 @@ public class KantineSimulatie2 {
 
     // prijzen
     private static double[] artikelprijzen = new double[] { 1.50, 2.10, 1.65, 1.65 };
-    // TODO DOCENT wat.
-    // private static double[] artikelprijzen = new double[] { 1.0, 2.0, 1.0, 1.0 };
 
     // minimum en maximum aantal artikelen per soort
     private static final int MIN_ARTIKELEN_PER_SOORT = 10000;
@@ -85,7 +83,7 @@ public class KantineSimulatie2 {
      */
     private int getRandomValue(int min, int max) {
         // Omdat er misschien "0" klanten kunnen zijn, doen we +1.
-        return random.nextInt(max - min + 1) + min; // TODO Jilderda waarom + min?
+        return random.nextInt(max - min + 1) + min;
     }
 
     /**
@@ -131,7 +129,7 @@ public class KantineSimulatie2 {
                 dienbladVanKlant.setKlant(klantInWinkel);
 
                 // Bedenk hoeveel artikelen worden gepakt.
-                int aantalArtikelen = getRandomValue(MIN_ARTIKELEN_PER_PERSOON, MAX_ARTIKELEN_PER_PERSOON); // TODO FIX
+                int aantalArtikelen = getRandomValue(MIN_ARTIKELEN_PER_PERSOON, MAX_ARTIKELEN_PER_PERSOON);
 
                 // Genereer de "artikelnummers", dit zijn indexen van de artikelnamen.
                 int[] tePakken = getRandomArray(aantalArtikelen, 0, AANTAL_ARTIKELEN - 1);
