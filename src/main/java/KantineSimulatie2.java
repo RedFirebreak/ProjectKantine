@@ -1,6 +1,5 @@
 import java.sql.Array;
 import java.util.*;
-import java.text.DecimalFormat;
 
 public class KantineSimulatie2 {
 
@@ -8,7 +7,7 @@ public class KantineSimulatie2 {
     private Kantine kantine;
 
     // kantineaanbod
-    private KantineAanbod kantineaanbod;
+    private KantineAanbod kantineAanbod;
 
     // random generator
     private Random random;
@@ -22,8 +21,6 @@ public class KantineSimulatie2 {
 
     // prijzen
     private static double[] artikelprijzen = new double[] { 1.50, 2.10, 1.65, 1.65 };
-    // TODO DOCENT wat.
-    // private static double[] artikelprijzen = new double[] { 1.0, 2.0, 1.0, 1.0 };
 
     // minimum en maximum aantal artikelen per soort
     private static final int MIN_ARTIKELEN_PER_SOORT = 10000;
@@ -40,7 +37,7 @@ public class KantineSimulatie2 {
     /**
      * Constructor
      */
-    public KantineSimulatie2(int dagen) {
+    public KantineSimulatie2() {
         // Maak een nieuwe kantine aan, de "hoofd" klasse.
         kantine = new Kantine();
 
@@ -51,13 +48,10 @@ public class KantineSimulatie2 {
         int[] hoeveelheden = getRandomArray(AANTAL_ARTIKELEN, MIN_ARTIKELEN_PER_SOORT, MAX_ARTIKELEN_PER_SOORT);
 
         // Maak een nieuw kantineaanbod aan.
-        kantineaanbod = new KantineAanbod(artikelnamen, artikelprijzen, hoeveelheden);
+        kantineAanbod = new KantineAanbod(artikelnamen, artikelprijzen, hoeveelheden);
 
         // Verwerk het kantineaanbod in de kantine.
-        kantine.setKantineAanbod(kantineaanbod);
-
-        // Start de simulatie.
-        simuleer(dagen);
+        kantine.setKantineAanbod(kantineAanbod);
     }
 
     /**
@@ -88,7 +82,7 @@ public class KantineSimulatie2 {
      */
     private int getRandomValue(int min, int max) {
         // Omdat er misschien "0" klanten kunnen zijn, doen we +1.
-        return random.nextInt(max - min + 1) + min; //TODO Jilderda waarom + min?
+        return random.nextInt(max - min + 1) + min;
     }
 
     /**
@@ -133,7 +127,7 @@ public class KantineSimulatie2 {
                 dienbladVanKlant.setKlant(klantInWinkel);
 
                 // Bedenk hoeveel artikelen worden gepakt.
-                int aantalArtikelen = getRandomValue(MIN_ARTIKELEN_PER_PERSOON, MAX_ARTIKELEN_PER_PERSOON); // TODO FIX
+                int aantalArtikelen = getRandomValue(MIN_ARTIKELEN_PER_PERSOON, MAX_ARTIKELEN_PER_PERSOON);
 
                 // Genereer de "artikelnummers", dit zijn indexen van de artikelnamen.
                 int[] tePakken = getRandomArray(aantalArtikelen, 0, AANTAL_ARTIKELEN - 1);
@@ -149,10 +143,9 @@ public class KantineSimulatie2 {
             kantine.verwerkRijVoorKassa();
 
             // druk de dagtotalen af en hoeveel personen binnen zijn gekomen.
-            DecimalFormat afgerond = new DecimalFormat("##.00"); // Om af te ronden op decimalen.
-            System.out.println("Aantal klanten:" + aantalPersonen);
-            System.out.println("Aantal artikelen:" + kantine.getAantalArtikelen());
-            System.out.println("Totaalbedrag:" + afgerond.format(kantine.getTotaalbedrag()));
+            System.out.println("Aantal klanten: " + aantalPersonen);
+            System.out.println("Aantal artikelen: " + kantine.getAantalArtikelen());
+            System.out.printf("Totaalbedrag: " + "%.2f%n",kantine.getTotaalbedrag());
 
             // reset de kassa voor de volgende dag.
             kantine.resetKassa();

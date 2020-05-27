@@ -1,4 +1,7 @@
 import java.util.LinkedList;
+// Een linkedlist gebruikt minder memory dan een arraylist.
+// Omdat deze het eerste en het laatste object in de lijst goed onthoudt.
+// Terwijl een arraylist voor het laatste object door de hele list moet lopen.
 
 public class KassaRij {
 
@@ -12,7 +15,7 @@ public class KassaRij {
     }
 
     /**
-     * Persoon sluit achter in de rij aan
+     * Persoon sluit achter in de rij aan.
      *
      * @param klant Het dienblad van de klant, die toegevoegd moet worden.
      */

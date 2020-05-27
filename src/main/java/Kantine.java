@@ -22,7 +22,6 @@ public class Kantine {
         kantineAanbod = new KantineAanbod(artikelnamen, artikelprijzen, hoeveelheden);
 
         // Maak een kassarij aan
-        // TODO DOCENT kassarij later nog nodig? Anders samen met kassa.
         kassaRij = new KassaRij();
 
         // Maak een kassa aan
@@ -62,7 +61,7 @@ public class Kantine {
     }
 
     /**
-     * Deze methode telt hoeveel geld er in de kassa zit TODO docent: totaal voor altijd of per dag?
+     * Deze methode telt hoeveel geld er in de kassa zit.
      * 
      * @return De hoeveelheid geld in de kassa.
      */
@@ -71,7 +70,7 @@ public class Kantine {
     }
 
     /**
-     * Deze methode geeft het aantal gepasseerde artikelen TODO docent: aantal voor altijd of per dag?
+     * Deze methode geeft het aantal gepasseerde artikelen.
      * 
      * @return Het aantal gepasseerde artikelen.
      */
