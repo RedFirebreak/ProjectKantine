@@ -23,8 +23,8 @@ public class KantineSimulatie2 {
     private static double[] artikelprijzen = new double[] { 1.50, 2.10, 1.65, 1.65 };
 
     // minimum en maximum aantal artikelen per soort
-    private static final int MIN_ARTIKELEN_PER_SOORT = 10000;
-    private static final int MAX_ARTIKELEN_PER_SOORT = 20000;
+    private static final int MIN_ARTIKELEN_PER_SOORT = 1;
+    private static final int MAX_ARTIKELEN_PER_SOORT = 2;
 
     // minimum en maximum aantal personen per dag
     private static final int MIN_PERSONEN_PER_DAG = 50;
@@ -138,6 +138,11 @@ public class KantineSimulatie2 {
 
                 // Loop de kantine binnen, pak de gewenste artikelen en sluit aan.
                 kantine.loopPakSluitAan(dienbladVanKlant, artikelen);
+
+                // Vul artikelen aan als ze onder het minimum komen. 3.1
+                for(int p = 0; p < aantalArtikelen; p++) {
+                    kantineAanbod.vulVoorraadAan(artikelen[p]);
+                }
             }
 
             // Verwerk rij voor de kassa.
