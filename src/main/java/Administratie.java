@@ -5,7 +5,7 @@ public class Administratie {
     /**
      * Private constructor zodat deze klasse niet kan worden aangeroepen vanuit andere klassen, omdat deze niet "zichtbaar" is.
      */
-    private Administratie() {
+    public Administratie() {
 
     }
 
@@ -17,13 +17,13 @@ public class Administratie {
         test1[3]=39;
         test1[4]=40;
         test1[5]=31;
-        System.out.println("Gemiddelde test1: " + berekenGemiddeldAantal(test1));
+        //System.out.printf("Gemiddelde test1: " + "%.2f%n",berekenGemiddeldAantal(test1));
 
         double[] test2 = new double[3];
         test2[0]=567.70;
         test2[1]=498.25;
         test2[2]=458.90;
-        System.out.println("Gemiddelde test2: " + berekenGemiddeldeOmzet(test2));
+        //System.out.printf("Gemiddelde test2: " + "%.2f%n",berekenGemiddeldeOmzet(test2));
 
         double[] test3 = new double[11];
         test3[0]=321.35;
@@ -37,10 +37,14 @@ public class Administratie {
         test3[8]=201.90;
         test3[9]=242.70;
         test3[10]=260.35;
-        System.out.println("Gemiddelden test3: ");
-        for(int t = 0; t < DAYS_IN_WEEK; t++) {
-            System.out.println(berekenDagOmzet(test3)[t]);
-        }
+        //System.out.println("Gemiddelden test3: ");
+        //System.out.printf("Maandag: " + "%.2f%n",berekenDagOmzet(test3)[0]);
+        //System.out.printf("Dinsdag: " + "%.2f%n",berekenDagOmzet(test3)[1]);
+        //System.out.printf("Woensdag: " + "%.2f%n",berekenDagOmzet(test3)[2]);
+        //System.out.printf("Donderdag: " + "%.2f%n",berekenDagOmzet(test3)[3]);
+        //System.out.printf("Vrijdag: " + "%.2f%n",berekenDagOmzet(test3)[4]);
+        //System.out.printf("Zaterdag: " + "%.2f%n",berekenDagOmzet(test3)[5]);
+        //System.out.printf("Zondag: " + "%.2f%n",berekenDagOmzet(test3)[6]);
     }
 
     /**
@@ -49,7 +53,7 @@ public class Administratie {
      * @param aantal Het aantal dingen die er in gaan.
      * @return       Het gemiddelde per index.
      */
-    public static double berekenGemiddeldAantal(int[] aantal) {
+    public double berekenGemiddeldAantal(int[] aantal) {
         double forReturn = 0.0;
         int totaal=0;
         for(int i = 0; i < aantal.length; i++){
@@ -65,7 +69,7 @@ public class Administratie {
      * @param omzet De totale omzet.
      * @return      Het gemiddelde per index.
      */
-    public static double berekenGemiddeldeOmzet(double[] omzet) {
+    public double berekenGemiddeldeOmzet(double[] omzet) {
         double forReturn = 0.0;
         double totaal=0;
         for(int i = 0; i < omzet.length; i++){
@@ -82,7 +86,7 @@ public class Administratie {
      * @return      Array met 7 elementen met dagomzetten.
      */
 
-    public static double[] berekenDagOmzet(double[] omzet) {
+    public double[] berekenDagOmzet(double[] omzet) {
         // nieuwe double array met 7 plekken.
         double[] temp = new double[DAYS_IN_WEEK]; 
 
@@ -91,7 +95,7 @@ public class Administratie {
 
             int j = 0;
             while(j < omzet.length) {
-                if((j-i)%7==0) {
+                if((j-i-1) % DAYS_IN_WEEK == 0) {
                     temp[i] += omzet[j];
                 }
                 j++;

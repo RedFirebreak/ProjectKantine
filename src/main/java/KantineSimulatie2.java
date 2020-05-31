@@ -12,6 +12,9 @@ public class KantineSimulatie2 {
     // random generator
     private Random random;
 
+    // administrator
+    private Administratie administratie;
+
     // aantal artikelen
     private static final int AANTAL_ARTIKELEN = 4;
 
@@ -34,12 +37,19 @@ public class KantineSimulatie2 {
     private static final int MIN_ARTIKELEN_PER_PERSOON = 1;
     private static final int MAX_ARTIKELEN_PER_PERSOON = 4;
 
+    // totaalomzet
+    private int[] gemiddeldeArtikelen;
+    private double[] dagOmzet;
+
     /**
      * Constructor
      */
     public KantineSimulatie2() {
         // Maak een nieuwe kantine aan, de "hoofd" klasse.
         kantine = new Kantine();
+
+        // Zet administratie klaar.
+        administratie = new Administratie();
 
         // Zet een randomizer klaar.
         random = new Random();
@@ -108,6 +118,11 @@ public class KantineSimulatie2 {
      * @param dagen De hoeveelheid dagen die je wil simuleren.
      */
     public void simuleer(int dagen) {
+        // Zet de variabele voor administratie.
+        gemiddeldeArtikelen = new int[dagen+1];
+        dagOmzet = new double[dagen+1];
+        
+
         // For lus voor dagen.
         for (int i = 1; i < dagen + 1; i++) {
             System.out.println("-------------------------");
@@ -152,9 +167,26 @@ public class KantineSimulatie2 {
             System.out.println("Aantal klanten: " + aantalPersonen);
             System.out.println("Aantal artikelen: " + kantine.getAantalArtikelen());
             System.out.printf("Totaalbedrag: " + "%.2f%n",kantine.getTotaalbedrag());
+            System.out.println("");
+
+            // sla de waarden van die dag op.
+            gemiddeldeArtikelen[i] = kantine.getAantalArtikelen();
+            dagOmzet[i] = kantine.getTotaalbedrag();
 
             // reset de kassa voor de volgende dag.
             kantine.resetKassa();
         }
+        
+        System.out.printf("Gemiddelde omzet: " + "%.2f%n",administratie.berekenGemiddeldeOmzet(dagOmzet));
+        System.out.printf("Gemiddelde verkochte artikelen: " + "%.2f%n",administratie.berekenGemiddeldAantal(gemiddeldeArtikelen));
+        System.out.println("Totalen per dag: ");
+        System.out.printf("Maandag: " + "%.2f%n",administratie.berekenDagOmzet(dagOmzet)[0]);
+        System.out.printf("Dinsdag: " + "%.2f%n",administratie.berekenDagOmzet(dagOmzet)[1]);
+        System.out.printf("Woensdag: " + "%.2f%n",administratie.berekenDagOmzet(dagOmzet)[2]);
+        System.out.printf("Donderdag: " + "%.2f%n",administratie.berekenDagOmzet(dagOmzet)[3]);
+        System.out.printf("Vrijdag: " + "%.2f%n",administratie.berekenDagOmzet(dagOmzet)[4]);
+        System.out.printf("Zaterdag: " + "%.2f%n",administratie.berekenDagOmzet(dagOmzet)[5]);
+        System.out.printf("Zondag: " + "%.2f%n",administratie.berekenDagOmzet(dagOmzet)[6]);
+        
     }
 }
