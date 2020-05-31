@@ -73,8 +73,11 @@ public class KantineAanbod {
         } else {
             Artikel a = stapel.get(0);
             stapel.remove(0);
-            if (stapel.size() <= 10)
+
+            // Als na het pakken van een product de hoeveelheil lager of gelijk is aan 10, vul de voorraad voro dat product aan.
+            if (stapel.size() <= 10) {
                 vulVoorraadAan(a.getNaam());
+            }
             return a;
         }
     }

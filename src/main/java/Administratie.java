@@ -38,7 +38,7 @@ public class Administratie {
         test3[9]=242.70;
         test3[10]=260.35;
         System.out.println("Gemiddelden test3: ");
-        for(int t = 0; t < test3.length; t++) {
+        for(int t = 0; t < DAYS_IN_WEEK; t++) {
             System.out.println(berekenDagOmzet(test3)[t]);
         }
     }
@@ -89,12 +89,13 @@ public class Administratie {
         //forloop om door de 7 dagen heen te lopen.
         for (int i = 0; i < DAYS_IN_WEEK; i++) {
 
-            //TODO I NEED HELP
-            //int j = 0;
-            //while(j==0) {
-            //    temp[i] += omzet[i + DAYS_IN_WEEK * j];
-            //    
-            //}
+            int j = 0;
+            while(j < omzet.length) {
+                if((j-i)%7==0) {
+                    temp[i] += omzet[j];
+                }
+                j++;
+            }
         }
         return temp;
     }

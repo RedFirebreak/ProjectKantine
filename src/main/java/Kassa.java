@@ -26,8 +26,6 @@ public class Kassa {
         Stack<Artikel> artikelen = dienblad.getArtikelen();
         aantalArtikelen += artikelen.size();
         totaalPrijs += getTotaalPrijs(dienblad);
-
-        //TODO producten verwijderen uit KantineAanbod
     }
 
     /**
