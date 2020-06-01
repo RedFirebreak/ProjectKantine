@@ -119,16 +119,19 @@ public class KantineSimulatie2 {
      */
     public void simuleer(int dagen) {
         // Zet de variabele voor administratie.
-        gemiddeldeArtikelen = new int[dagen+1];
-        dagOmzet = new double[dagen+1];
+            gemiddeldeArtikelen = new int[dagen+1];
+            dagOmzet = new double[dagen+1];
         
         // counters voor totaalstatistieken
             int totaalAantalStudenten = 0;
             int totaalAantalDocenten = 0;
             int totaalAantalKantineMedewerkers = 0;
 
-        // een BSN die mee gegeven wordt met elk persoon.
-        int bsn = 0;
+        // een BSN die mee gegeven wordt met elk persoon. (9 cijfers)
+            int bsn = 100000000;
+        // Voor leerlingen: studentnummer
+            int studentnummer = 10000;
+        
         
         // For lus voor dagen.
         for (int i = 1; i < dagen + 1; i++) {
@@ -204,7 +207,7 @@ public class KantineSimulatie2 {
 
                     if(randomgetal <= 89) {
                         // 89 op 100: Student
-                        int studentnummer = bsn; // Quick fix voor studentnummer
+                        studentnummer++;
                         String studierichting = "ICT"; // TODO random afdeling
                         klantInWinkel = new Student(bsn, "Stefan", "Jilderda", datum, geslacht, studentnummer, studierichting);
                         aantalStudenten++;
@@ -240,7 +243,7 @@ public class KantineSimulatie2 {
                     kantineAanbod.vulVoorraadAan(artikelen[p]);
                 }
 
-                // spam for week 3 opgave 4b
+                // Spam for week 3 opgave 4b
                 System.out.println(klantInWinkel.toString());
             }
 
