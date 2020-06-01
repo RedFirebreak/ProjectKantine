@@ -122,9 +122,14 @@ public class KantineSimulatie2 {
         gemiddeldeArtikelen = new int[dagen+1];
         dagOmzet = new double[dagen+1];
         
+        // counters voor totaalstatistieken
+            int totaalAantalStudenten = 0;
+            int totaalAantalDocenten = 0;
+            int totaalAantalKantineMedewerkers = 0;
 
         // een BSN die mee gegeven wordt met elk persoon.
         int bsn = 0;
+        
         // For lus voor dagen.
         for (int i = 1; i < dagen + 1; i++) {
             System.out.println("-------------------------");
@@ -132,6 +137,11 @@ public class KantineSimulatie2 {
 
             // Bedenk hoeveel personen vandaag binnen lopen.
             int aantalPersonen = getRandomValue(MIN_PERSONEN_PER_DAG, MAX_PERSONEN_PER_DAG);
+
+            // maak wat counters voor statistieken :)
+                int aantalStudenten = 0;
+                int aantalDocenten = 0;
+                int aantalKantineMedewerkers = 0;
 
             // Laat de personen maar komen...
             for (int j = 0; j < aantalPersonen; j++) {
@@ -145,7 +155,7 @@ public class KantineSimulatie2 {
                     Datum datum = new Datum(); 
 
                     // while loop todat er een echte datum gevonden is
-                    while(datumAangemaakt) {
+                    while(datumAangemaakt == false) {
                         // Max 31 dagen 
                         int randomdag = random.nextInt(31);
                         // Max 12 maanden
@@ -164,6 +174,7 @@ public class KantineSimulatie2 {
                             datumAangemaakt = false;
                         }
                     }
+                    
 
                 // Get random geslacht (1 op 2)
                     int randomgetal = random.nextInt(2);
@@ -183,10 +194,12 @@ public class KantineSimulatie2 {
 
                     // Overwrite random getal en maak een 1 - 100
                     randomgetal = random.nextInt(100);
+                    randomgetal++; // maak getal 1-100 i.p.v 0-99.
 
                     if (randomgetal == 100) {
                         // 1 op 100: kantinemedewerker
                         klantInWinkel = new KantineMedewerker(bsn, "Stefan", "Jilderda", datum, geslacht);
+                        aantalKantineMedewerkers++;
                     }
 
                     if(randomgetal <= 89) {
@@ -194,6 +207,8 @@ public class KantineSimulatie2 {
                         int studentnummer = bsn; // Quick fix voor studentnummer
                         String studierichting = "ICT"; // TODO random afdeling
                         klantInWinkel = new Student(bsn, "Stefan", "Jilderda", datum, geslacht, studentnummer, studierichting);
+                        aantalStudenten++;
+                    
                     }
 
                     if (randomgetal >= 90 && randomgetal < 100 ) {
@@ -201,6 +216,7 @@ public class KantineSimulatie2 {
                         String vierlettercode = "ABCD"; // TODO random vierlettercode
                         String afdeling = "ICT"; // TODO random afdeling
                         klantInWinkel = new Docent(bsn, "Stefan", "Jilderda", datum, geslacht, vierlettercode, afdeling);
+                        aantalDocenten++;
                     }
 
                 // Maak persoon en dienblad aan, koppel ze aan elkaar.
@@ -224,6 +240,7 @@ public class KantineSimulatie2 {
                     kantineAanbod.vulVoorraadAan(artikelen[p]);
                 }
 
+                // spam for week 3 opgave 4b
                 System.out.println(klantInWinkel.toString());
             }
 
@@ -232,6 +249,7 @@ public class KantineSimulatie2 {
 
             // druk de dagtotalen af en hoeveel personen binnen zijn gekomen.
             System.out.println("Aantal klanten: " + aantalPersonen);
+            System.out.println("Studenten: " + aantalStudenten + " Docenten: " + aantalDocenten + " Kantinemedewerkers: " + aantalKantineMedewerkers);
             System.out.println("Aantal artikelen: " + kantine.getAantalArtikelen());
             System.out.printf("Totaalbedrag: " + "%.2f%n",kantine.getTotaalbedrag());
             System.out.println("");
@@ -240,13 +258,23 @@ public class KantineSimulatie2 {
             gemiddeldeArtikelen[i] = kantine.getAantalArtikelen();
             dagOmzet[i] = kantine.getTotaalbedrag();
 
+            // vul statistieken aan 
+            totaalAantalStudenten += aantalStudenten;
+            totaalAantalDocenten += aantalDocenten;
+            totaalAantalKantineMedewerkers += aantalKantineMedewerkers;
+
             // reset de kassa voor de volgende dag.
             kantine.resetKassa();
         }
+        System.out.println("--- Klanten --- ");
+        System.out.println("Totaal aantal klanten: " + (totaalAantalStudenten + totaalAantalDocenten + totaalAantalKantineMedewerkers)); 
+        System.out.println("Studenten: " + totaalAantalStudenten + " Docenten: " + totaalAantalDocenten + " Kantinemedewerkers: " + totaalAantalKantineMedewerkers);
         
+        System.out.println("--- Gemiddeldes --- ");
         System.out.printf("Gemiddelde omzet: " + "%.2f%n",administratie.berekenGemiddeldeOmzet(dagOmzet));
         System.out.printf("Gemiddelde verkochte artikelen: " + "%.2f%n",administratie.berekenGemiddeldAantal(gemiddeldeArtikelen));
-        System.out.println("Totalen per dag: ");
+        
+        System.out.println("--- Totalen per dag --- ");
         System.out.printf("Maandag: " + "%.2f%n",administratie.berekenDagOmzet(dagOmzet)[0]);
         System.out.printf("Dinsdag: " + "%.2f%n",administratie.berekenDagOmzet(dagOmzet)[1]);
         System.out.printf("Woensdag: " + "%.2f%n",administratie.berekenDagOmzet(dagOmzet)[2]);
