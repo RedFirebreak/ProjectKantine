@@ -156,3 +156,6 @@ public class Persoon {
         }
     }
 }
+// Week 3 -> opgave 3b: Een super aanroep moet altijd bovenin de constructor staan
+//                      omdat anders er al wijzigingen gemaakt kunnen zijn zonder de
+//                      Superklasse te benaderen

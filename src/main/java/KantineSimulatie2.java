@@ -123,6 +123,8 @@ public class KantineSimulatie2 {
         dagOmzet = new double[dagen+1];
         
 
+        // een BSN die mee gegeven wordt met elk persoon.
+        int bsn = 0;
         // For lus voor dagen.
         for (int i = 1; i < dagen + 1; i++) {
             System.out.println("-------------------------");
@@ -133,10 +135,73 @@ public class KantineSimulatie2 {
 
             // Laat de personen maar komen...
             for (int j = 0; j < aantalPersonen; j++) {
-                Datum datum = new Datum(23, 3, 1997); // TODO Randomizer datum?
-                char geslacht = 'M'; // TODO Randomizer M of V?
-                Persoon klantInWinkel = new Persoon(j, "Stefan", "Jilderda", datum, geslacht); // TODO Randomizer
-                                                                                               // persoon?
+                // Nieuw persoon, nieuw BSN!
+                bsn++;
+
+                // Maak een geboortedatum
+                    // While loop to make sure we have a valid datum
+                    Boolean datumAangemaakt = false;
+                    // Maak een "fake" datum aan om een echte te kunnen checken.
+                    Datum datum = new Datum(); 
+
+                    // while loop todat er een echte datum gevonden is
+                    while(datumAangemaakt) {
+                        // Max 31 dagen 
+                        int randomdag = random.nextInt(31);
+                        // Max 12 maanden
+                        int randommaand = random.nextInt(12);
+                        // Min 10 jaar oud, max 60+10
+                        int randomjaar = (2020-((random.nextInt(60))+10));
+
+                        // Kijk of de 3 gegevens samen een echte datum maken
+                        if (datum.bestaatDatum(randomdag, randommaand, randomjaar)) {
+                            // datum bestaat, overwrite de fake datum!
+                            datum = new Datum(randomdag, randommaand, randomjaar);
+                            // exit loop!
+                            datumAangemaakt = true;
+                        } else {
+                            // datum bestaat niet. Try again
+                            datumAangemaakt = false;
+                        }
+                    }
+
+                // Get random geslacht (1 op 2)
+                    int randomgetal = random.nextInt(2);
+                    char geslacht = 'O';
+
+                    if (randomgetal == 1) {
+                        // 1 op 2: Man
+                        geslacht = 'M';
+                    } else {
+                        // 1 op 2: Vrouw
+                        geslacht = 'V';
+                    }
+
+                // Bepaal wat voor klant dit is
+                    // maak een fake klant
+                    Persoon klantInWinkel = new Persoon();
+
+                    // Overwrite random getal en maak een 1 - 100
+                    randomgetal = random.nextInt(100);
+
+                    if (randomgetal == 100) {
+                        // 1 op 100: kantinemedewerker
+                        klantInWinkel = new KantineMedewerker(bsn, "Stefan", "Jilderda", datum, geslacht);
+                    }
+
+                    if(randomgetal <= 89) {
+                        // 89 op 100: Student
+                        int studentnummer = bsn; // Quick fix voor studentnummer
+                        String studierichting = "ICT"; // TODO random afdeling
+                        klantInWinkel = new Student(bsn, "Stefan", "Jilderda", datum, geslacht, studentnummer, studierichting);
+                    }
+
+                    if (randomgetal >= 90 && randomgetal < 100 ) {
+                        // 10 op 100: Docent
+                        String vierlettercode = "ABCD"; // TODO random vierlettercode
+                        String afdeling = "ICT"; // TODO random afdeling
+                        klantInWinkel = new Docent(bsn, "Stefan", "Jilderda", datum, geslacht, vierlettercode, afdeling);
+                    }
 
                 // Maak persoon en dienblad aan, koppel ze aan elkaar.
                 Dienblad dienbladVanKlant = new Dienblad(klantInWinkel);
@@ -158,6 +223,8 @@ public class KantineSimulatie2 {
                 for(int p = 0; p < aantalArtikelen; p++) {
                     kantineAanbod.vulVoorraadAan(artikelen[p]);
                 }
+
+                System.out.println(klantInWinkel.toString());
             }
 
             // Verwerk rij voor de kassa.
