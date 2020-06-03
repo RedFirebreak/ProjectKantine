@@ -12,9 +12,6 @@ public class KantineSimulatie2 {
     // random generator
     private Random random;
 
-    // administrator
-    private Administratie administratie;
-
     // aantal artikelen
     private static final int AANTAL_ARTIKELEN = 4;
 
@@ -47,9 +44,6 @@ public class KantineSimulatie2 {
     public KantineSimulatie2() {
         // Maak een nieuwe kantine aan, de "hoofd" klasse.
         kantine = new Kantine();
-
-        // Zet administratie klaar.
-        administratie = new Administratie();
 
         // Zet een randomizer klaar.
         random = new Random();
@@ -203,18 +197,13 @@ public class KantineSimulatie2 {
                         // 1 op 100: kantinemedewerker
                         klantInWinkel = new KantineMedewerker(bsn, "Stefan", "Jilderda", datum, geslacht);
                         aantalKantineMedewerkers++;
-                    }
-
-                    if(randomgetal <= 89) {
+                    } else if(randomgetal <= 89) {
                         // 89 op 100: Student
                         studentnummer++;
                         String studierichting = "ICT"; // TODO random afdeling
                         klantInWinkel = new Student(bsn, "Stefan", "Jilderda", datum, geslacht, studentnummer, studierichting);
                         aantalStudenten++;
-                    
-                    }
-
-                    if (randomgetal >= 90 && randomgetal < 100 ) {
+                    } else if (randomgetal >= 90 && randomgetal < 100 ) {
                         // 10 op 100: Docent
                         String vierlettercode = "ABCD"; // TODO random vierlettercode
                         String afdeling = "ICT"; // TODO random afdeling
@@ -274,17 +263,19 @@ public class KantineSimulatie2 {
         System.out.println("Studenten: " + totaalAantalStudenten + " Docenten: " + totaalAantalDocenten + " Kantinemedewerkers: " + totaalAantalKantineMedewerkers);
         
         System.out.println("--- Gemiddelden --- ");
-        System.out.printf("Gemiddelde omzet: " + "%.2f%n",administratie.berekenGemiddeldeOmzet(dagOmzet));
-        System.out.printf("Gemiddelde verkochte artikelen: " + "%.2f%n",administratie.berekenGemiddeldAantal(gemiddeldeArtikelen));
+        System.out.printf("Gemiddelde omzet: " + "%.2f%n",Administratie.berekenGemiddeldeOmzet(dagOmzet));
+        System.out.printf("Gemiddelde verkochte artikelen: " + "%.2f%n",Administratie.berekenGemiddeldAantal(gemiddeldeArtikelen));
         
+        double[] dagTotalen = Administratie.berekenDagOmzet(dagOmzet);
+
         System.out.println("--- Totalen per dag --- ");
-        System.out.printf("Maandag: " + "%.2f%n",administratie.berekenDagOmzet(dagOmzet)[0]);
-        System.out.printf("Dinsdag: " + "%.2f%n",administratie.berekenDagOmzet(dagOmzet)[1]);
-        System.out.printf("Woensdag: " + "%.2f%n",administratie.berekenDagOmzet(dagOmzet)[2]);
-        System.out.printf("Donderdag: " + "%.2f%n",administratie.berekenDagOmzet(dagOmzet)[3]);
-        System.out.printf("Vrijdag: " + "%.2f%n",administratie.berekenDagOmzet(dagOmzet)[4]);
-        System.out.printf("Zaterdag: " + "%.2f%n",administratie.berekenDagOmzet(dagOmzet)[5]);
-        System.out.printf("Zondag: " + "%.2f%n",administratie.berekenDagOmzet(dagOmzet)[6]);
+        System.out.printf("Maandag: " + "%.2f%n",dagTotalen[0]);
+        System.out.printf("Dinsdag: " + "%.2f%n",dagTotalen[1]);
+        System.out.printf("Woensdag: " + "%.2f%n",dagTotalen[2]);
+        System.out.printf("Donderdag: " + "%.2f%n",dagTotalen[3]);
+        System.out.printf("Vrijdag: " + "%.2f%n",dagTotalen[4]);
+        System.out.printf("Zaterdag: " + "%.2f%n",dagTotalen[5]);
+        System.out.printf("Zondag: " + "%.2f%n",dagTotalen[6]);
         
     }
 }
