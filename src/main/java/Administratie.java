@@ -3,7 +3,8 @@ public class Administratie {
     private static final int DAYS_IN_WEEK = 7;
 
     /**
-     * Private constructor zodat deze klasse niet kan worden aangeroepen vanuit andere klassen, omdat deze niet "zichtbaar" is.
+     * Private constructor zijn er zodat die klasse niet kan worden aangeroepen vanuit andere klassen, omdat deze niet "zichtbaar" is.
+     * Deze condtructor is nu public omdat deze aangeroepen moest worden in KantineSimulatie2.
      */
     public Administratie() {
 

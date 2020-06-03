@@ -141,7 +141,7 @@ public class KantineSimulatie2 {
             // Bedenk hoeveel personen vandaag binnen lopen.
             int aantalPersonen = getRandomValue(MIN_PERSONEN_PER_DAG, MAX_PERSONEN_PER_DAG);
 
-            // maak wat counters voor statistieken :)
+            // maak wat counters voor statistieken :
                 int aantalStudenten = 0;
                 int aantalDocenten = 0;
                 int aantalKantineMedewerkers = 0;
@@ -273,7 +273,7 @@ public class KantineSimulatie2 {
         System.out.println("Totaal aantal klanten: " + (totaalAantalStudenten + totaalAantalDocenten + totaalAantalKantineMedewerkers)); 
         System.out.println("Studenten: " + totaalAantalStudenten + " Docenten: " + totaalAantalDocenten + " Kantinemedewerkers: " + totaalAantalKantineMedewerkers);
         
-        System.out.println("--- Gemiddeldes --- ");
+        System.out.println("--- Gemiddelden --- ");
         System.out.printf("Gemiddelde omzet: " + "%.2f%n",administratie.berekenGemiddeldeOmzet(dagOmzet));
         System.out.printf("Gemiddelde verkochte artikelen: " + "%.2f%n",administratie.berekenGemiddeldAantal(gemiddeldeArtikelen));
         
