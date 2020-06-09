@@ -3,7 +3,7 @@ import java.util.*;
 public class Kassa {
 
     KassaRij kassaRij = new KassaRij();
-    Double totaalPrijs = 0.0;
+    double totaalPrijs = 0.0;
     int aantalArtikelen = 0;
 
     /**
@@ -23,9 +23,31 @@ public class Kassa {
      * @param dienblad Die moet afrekenen.
      */
     public void rekenAf(Dienblad dienblad) {
-        Stack<Artikel> artikelen = dienblad.getArtikelen();
-        aantalArtikelen += artikelen.size();
-        totaalPrijs += getTotaalPrijs(dienblad);
+        // Als de klant kan betalen, rekenen we af, anders niet.
+        Persoon klant = dienblad.getKlant();
+        try {
+            if((klant instanceof KantineMedewerker)) {
+                KantineMedewerker kantineMedewerker = ((KantineMedewerker)klant);
+
+                double korting = (getTotaalPrijs(dienblad) * (kantineMedewerker.geefKortingsPercentage() / 100));
+                totaalPrijs += (getTotaalPrijs(dienblad) - korting);
+                aantalArtikelen += dienblad.getArtikelen().size();
+                klant.getBetaalwijze().betaal(getTotaalPrijs(dienblad));
+            } else if((klant instanceof Docent)) {
+                Docent docent = ((Docent)klant);
+
+                double korting = (getTotaalPrijs(dienblad) * (docent.geefKortingsPercentage() / 100));
+                totaalPrijs += (getTotaalPrijs(dienblad) - korting);
+                aantalArtikelen += dienblad.getArtikelen().size();
+                klant.getBetaalwijze().betaal(getTotaalPrijs(dienblad));
+            } else {
+                totaalPrijs += getTotaalPrijs(dienblad);
+                aantalArtikelen += dienblad.getArtikelen().size();
+                klant.getBetaalwijze().betaal(getTotaalPrijs(dienblad));
+            }
+        } catch(TeWeinigGeldException e) {
+            System.out.println(klant.getVoornaam() + " " +  klant.getAchternaam() + ": Betaling gefaald, " + e + ".");
+        }
     }
 
     /**
@@ -71,8 +93,8 @@ public class Kassa {
      *
      * @return De totaalprijs.
      */
-    public Double getTotaalPrijs(Dienblad artikelen) {
-        Double totaal = 0.0;
+    public double getTotaalPrijs(Dienblad artikelen) {
+        double totaal = 0.0;
         Iterator<Artikel> iterator = artikelen.getArtikelen().iterator();
         while (iterator.hasNext()) {
             totaal += ((Artikel) iterator.next()).getPrijs();

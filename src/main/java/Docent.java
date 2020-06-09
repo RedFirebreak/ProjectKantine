@@ -1,4 +1,4 @@
-public class Docent extends Persoon{
+public class Docent extends Persoon implements KortingskaartHouder {
     String type = "Docent";
     String vierLetterCode;
     String afdeling;
@@ -52,6 +52,20 @@ public class Docent extends Persoon{
         this.afdeling = afdeling;
     }
 
+    @Override
+    public double geefKortingsPercentage() {
+        return 25.0;
+    }
+
+    @Override
+    public boolean heeftMaximum() {
+        return true;
+    }
+
+    @Override
+    public double geefMaximum() {
+        return 1.00;
+    }
 
     @Override
     public String toString() {

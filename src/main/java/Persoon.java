@@ -4,6 +4,8 @@ public class Persoon {
     private String achternaam;
     private Datum geboorteDatum;
     private char geslacht;
+    private Betaalwijze betaalwijze;
+    private boolean kortingsKaartHouder;
 
     /**
      * Maak een persoon aan.
@@ -20,9 +22,36 @@ public class Persoon {
         this.achternaam = achternaam;
         this.geboorteDatum = geboorteDatum;
         checkGeslacht(geslacht);
+        kortingsKaartHouder = false;
     }
 
+    public boolean isKortingsKaartHouder() {
+		return kortingsKaartHouder;
+	}
+
+	public void setKortingsKaartHouder(boolean kortingsKaartHouder) {
+		this.kortingsKaartHouder = kortingsKaartHouder;
+	}
+
+	/**
+     * Krijg de betaalwijze van deze persoon.
+     * 
+     * @return De betaalwijze van de persoon.
+     */
+    public Betaalwijze getBetaalwijze() {
+		return betaalwijze;
+	}
+
     /**
+     * Zet de betaalwijze van de persoon.
+     * 
+     * @param betaalwijze De betaalwijze van de persoon.
+     */
+	public void setBetaalwijze(Betaalwijze betaalwijze) {
+		this.betaalwijze = betaalwijze;
+	}
+
+	/**
      * Maak een leeg persoon aan.
      */
     public Persoon() {

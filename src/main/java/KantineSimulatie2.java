@@ -193,23 +193,48 @@ public class KantineSimulatie2 {
                     randomgetal = random.nextInt(100);
                     randomgetal++; // maak getal 1-100 i.p.v 0-99.
 
+                    String[] voornamen = { "Stefan", "Teun", "Stijn", "Romano", "Maurice", "Jan-Wiepke", "Henkie", "Jessica"};
+                    String[] achternamen = { "de Jong","Hoogezand","Braxhoofden","Pater","Wolthuis","Highsand-Juicylake","Timmermans","Willemse","Jansen","Kramer","Kuppen","Jilderda"};
+                    int randomVoornaam = random.nextInt(voornamen.length);
+                    int randomAchternaam = random.nextInt(achternamen.length);
+                    String voornaam = voornamen[randomVoornaam];
+                    String achternaam = achternamen[randomAchternaam];
+
                     if (randomgetal == 100) {
                         // 1 op 100: kantinemedewerker
-                        klantInWinkel = new KantineMedewerker(bsn, "Stefan", "Jilderda", datum, geslacht);
+                        klantInWinkel = new KantineMedewerker(bsn, voornaam, achternaam, datum, geslacht);
+                        klantInWinkel.setKortingsKaartHouder(true);
                         aantalKantineMedewerkers++;
                     } else if(randomgetal <= 89) {
                         // 89 op 100: Student
                         studentnummer++;
                         String studierichting = "ICT"; // TODO random afdeling
-                        klantInWinkel = new Student(bsn, "Stefan", "Jilderda", datum, geslacht, studentnummer, studierichting);
+                        klantInWinkel = new Student(bsn, voornaam, achternaam, datum, geslacht, studentnummer, studierichting);
                         aantalStudenten++;
                     } else if (randomgetal >= 90 && randomgetal < 100 ) {
                         // 10 op 100: Docent
                         String vierlettercode = "ABCD"; // TODO random vierlettercode
                         String afdeling = "ICT"; // TODO random afdeling
-                        klantInWinkel = new Docent(bsn, "Stefan", "Jilderda", datum, geslacht, vierlettercode, afdeling);
+                        klantInWinkel = new Docent(bsn, voornaam, achternaam, datum, geslacht, vierlettercode, afdeling);
+                        klantInWinkel.setKortingsKaartHouder(true);
                         aantalDocenten++;
                     }
+
+                // Get random geslacht (1 op 2)
+                randomgetal = random.nextInt(2);
+
+                if (randomgetal == 1) {
+                    // 1 op 2: Contant
+                    Contant betaalwijze;
+                    klantInWinkel.setBetaalwijze(betaalwijze = new Contant());
+                    betaalwijze.setSaldo(7.50);
+                } else {
+                    // 1 op 2: Pinpas
+                    Pinpas betaalwijze;
+                    klantInWinkel.setBetaalwijze(betaalwijze = new Pinpas());
+                    betaalwijze.setKredietLimiet(7.0);
+                    betaalwijze.setSaldo(7.50);
+                }
 
                 // Maak persoon en dienblad aan, koppel ze aan elkaar.
                 Dienblad dienbladVanKlant = new Dienblad(klantInWinkel);
@@ -233,7 +258,7 @@ public class KantineSimulatie2 {
                 }
 
                 // Spam for week 3 opgave 4b
-                System.out.println(klantInWinkel.toString());
+                //System.out.println(klantInWinkel.toString());
             }
 
             // Verwerk rij voor de kassa.

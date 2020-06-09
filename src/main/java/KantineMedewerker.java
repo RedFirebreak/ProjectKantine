@@ -1,4 +1,4 @@
-public class KantineMedewerker extends Persoon {
+public class KantineMedewerker extends Persoon implements KortingskaartHouder {
     String type = "KantineMedewerker";
     Boolean magAchterKassa = true;
 
@@ -29,6 +29,21 @@ public class KantineMedewerker extends Persoon {
      */
     public void setMagAchterKassa(Boolean magAchterKassa) {
         this.magAchterKassa = magAchterKassa;
+    }
+
+    @Override
+    public double geefKortingsPercentage() {
+        return 35.0;
+    }
+
+    @Override
+    public boolean heeftMaximum() {
+        return false;
+    }
+
+    @Override
+    public double geefMaximum() {
+        return 9001.0;
     }
 
     @Override

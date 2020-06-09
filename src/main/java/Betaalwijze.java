@@ -5,7 +5,7 @@ public abstract class Betaalwijze {
     /**
      * Methode om krediet te initialiseren
      *
-     * @param saldo
+     * @param saldo Het saldo om te zetten.
      */
     public void setSaldo(double saldo) {
         this.saldo = saldo;
@@ -17,5 +17,5 @@ public abstract class Betaalwijze {
      * @param tebetalen
      * @return Boolean om te kijken of er voldoende saldo is
      */
-    public abstract boolean betaal(double tebetalen);
+    public abstract void betaal(double tebetalen) throws TeWeinigGeldException;
 }
