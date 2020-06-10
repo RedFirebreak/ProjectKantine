@@ -46,7 +46,7 @@ public class Kassa {
                 klant.getBetaalwijze().betaal(getTotaalPrijs(dienblad));
             }
         } catch(TeWeinigGeldException e) {
-            System.out.println(klant.getVoornaam() + " " +  klant.getAchternaam() + ": Betaling gefaald, " + e + ".");
+            System.out.println(klant.getVoornaam() + " " +  klant.getAchternaam() + ".");
         }
     }
 

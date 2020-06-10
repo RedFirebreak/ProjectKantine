@@ -9,6 +9,6 @@ public class TeWeinigGeldException extends Exception{
     }
 
     public TeWeinigGeldException(String message) {
-
+        System.out.println(message + " voor: ");
     }
 }

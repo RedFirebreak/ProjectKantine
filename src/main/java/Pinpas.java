@@ -19,10 +19,10 @@ public class Pinpas extends Betaalwijze {
             if(saldo >= tebetalen) {
                 saldo = saldo-tebetalen;
             } else {
-                throw new TeWeinigGeldException();
+                throw new TeWeinigGeldException("Saldo te laag");
             }
         } else {
-            throw new TeWeinigGeldException();
+            throw new TeWeinigGeldException("Kredietlimiet overschreden");
         }
     }
 }

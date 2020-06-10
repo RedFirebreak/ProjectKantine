@@ -7,7 +7,7 @@ public class Contant extends Betaalwijze {
         if(saldo >= tebetalen) {
             saldo = saldo-tebetalen;
         } else {
-            throw new TeWeinigGeldException("Saldo te laag.");
+            throw new TeWeinigGeldException("Portemonee is leeg");
         } 
     }
 }
