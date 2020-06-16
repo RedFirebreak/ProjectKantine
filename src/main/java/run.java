@@ -3,6 +3,8 @@ public class run {
     public static final int DAGEN = 7; // 'Default' aantal dagen
     public static KantineSimulatie2 simulatie; // De opgeslagen KantineSimulatie
 
+    
+
     /**
      * Start de simulatie https://shorturl.at/hCDKR
      */

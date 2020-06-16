@@ -1,7 +1,15 @@
 import java.sql.Array;
 import java.util.*;
+import javax.persistence.Persistence;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+
 
 public class KantineSimulatie2 {
+    // Create an EntityManagerFactory when you start the application.
+    private static final EntityManagerFactory ENTITY_MANAGER_FACTORY =
+        Persistence.createEntityManagerFactory("KantineSimulatie");
+    private EntityManager manager;
 
     // kantine
     private Kantine kantine;
@@ -47,6 +55,7 @@ public class KantineSimulatie2 {
 
         // Zet een randomizer klaar.
         random = new Random();
+
         // Bepaal het aantal hoeveelheden van elk aspect.
         // Gebruikt de nieuwe getRandomArray();.
         int[] hoeveelheden = getRandomArray(AANTAL_ARTIKELEN, MIN_ARTIKELEN_PER_SOORT, MAX_ARTIKELEN_PER_SOORT);
@@ -112,6 +121,9 @@ public class KantineSimulatie2 {
      * @param dagen De hoeveelheid dagen die je wil simuleren.
      */
     public void simuleer(int dagen) {
+        // Create the manager
+        manager = ENTITY_MANAGER_FACTORY.createEntityManager();
+
         // Zet de variabele voor administratie.
             gemiddeldeArtikelen = new int[dagen+1];
             dagOmzet = new double[dagen+1];
@@ -131,6 +143,14 @@ public class KantineSimulatie2 {
         for (int i = 1; i < dagen + 1; i++) {
             System.out.println("-------------------------");
             System.out.println("Dag: " + i);
+
+            // Nieuwe aantallen en dagaanbiedingen
+                // Bepaal het aantal hoeveelheden van elk aspect.
+                // Gebruikt de nieuwe getRandomArray();.
+                int[] hoeveelheden = getRandomArray(AANTAL_ARTIKELEN, MIN_ARTIKELEN_PER_SOORT, MAX_ARTIKELEN_PER_SOORT);
+
+                // Maak een nieuw kantineaanbod aan.
+                kantineAanbod = new KantineAanbod(artikelnamen, artikelprijzen, hoeveelheden);
 
             // Bedenk hoeveel personen vandaag binnen lopen.
             int aantalPersonen = getRandomValue(MIN_PERSONEN_PER_DAG, MAX_PERSONEN_PER_DAG);
@@ -302,5 +322,9 @@ public class KantineSimulatie2 {
         System.out.printf("Zaterdag: " + "%.2f%n",dagTotalen[5]);
         System.out.printf("Zondag: " + "%.2f%n",dagTotalen[6]);
         
+        // Close manager and database :)
+        manager.close();
+        ENTITY_MANAGER_FACTORY.close();
+
     }
 }

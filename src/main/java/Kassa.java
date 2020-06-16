@@ -26,24 +26,59 @@ public class Kassa {
         // Als de klant kan betalen, rekenen we af, anders niet.
         Persoon klant = dienblad.getKlant();
         try {
-            if((klant instanceof KantineMedewerker)) {
-                KantineMedewerker kantineMedewerker = ((KantineMedewerker)klant);
+            if((klant instanceof KortingskaartHouder)) {
+                KortingskaartHouder kortingskaartHouder = ((KortingskaartHouder)klant);
+                // Zet totaalkorting op 0
+                double totaalKorting = 0;
+                double aanbiedingkorting = 0;
+                double pashouderkorting = 0;
 
-                double korting = (getTotaalPrijs(dienblad) * (kantineMedewerker.geefKortingsPercentage() / 100));
-                totaalPrijs += (getTotaalPrijs(dienblad) - korting);
-                aantalArtikelen += dienblad.getArtikelen().size();
-                klant.getBetaalwijze().betaal(getTotaalPrijs(dienblad));
-            } else if((klant instanceof Docent)) {
-                Docent docent = ((Docent)klant);
+                // Krijg alle artikelen van het dienblad
+                Stack<Artikel> artikelen = dienblad.getArtikelen();
+                // Iterate om de korting te berekenen
+                Iterator<Artikel> iterator = artikelen.iterator();
+                while (iterator.hasNext()) {
+                    Artikel artikel = iterator.next();
+                    double artikelkorting = artikel.getKorting();
 
-                double korting = (getTotaalPrijs(dienblad) * (docent.geefKortingsPercentage() / 100));
-                totaalPrijs += (getTotaalPrijs(dienblad) - korting);
+                    if (artikelkorting > 0) {
+                        // Artikel is een dagaanbieding!
+                        aanbiedingkorting += artikelkorting;
+                    } else {
+                        // Artikel is geen dagaanbieding, maar user heeft een kortingskaart
+                        pashouderkorting += (artikel.getPrijs() * (kortingskaartHouder.geefKortingsPercentage() / 100));
+                    }
+                }
+                
+                // Alleen voor docent op het moment:
+                if (kortingskaartHouder.heeftMaximum()) {
+                    if (pashouderkorting > kortingskaartHouder.geefMaximum()) {
+                        pashouderkorting = kortingskaartHouder.geefMaximum();
+                    }
+                }
+                
+                totaalKorting = aanbiedingkorting + pashouderkorting;
+
+                totaalPrijs += (getTotaalPrijs(dienblad) - totaalKorting);
                 aantalArtikelen += dienblad.getArtikelen().size();
-                klant.getBetaalwijze().betaal(getTotaalPrijs(dienblad));
+                klant.getBetaalwijze().betaal(totaalPrijs);
+
             } else {
-                totaalPrijs += getTotaalPrijs(dienblad);
+                // Zet totaalkorting op 0
+                double totaalKorting = 0;
+
+                // Krijg alle artikelen van het dienblad
+                Stack<Artikel> artikelen = dienblad.getArtikelen();
+                // Iterate om de korting te berekenen
+                Iterator<Artikel> iterator = artikelen.iterator();
+                while (iterator.hasNext()) {
+                    Artikel artikel = iterator.next();
+                    totaalKorting += artikel.getKorting();
+                }
+
+                totaalPrijs += (getTotaalPrijs(dienblad) - totaalKorting);
                 aantalArtikelen += dienblad.getArtikelen().size();
-                klant.getBetaalwijze().betaal(getTotaalPrijs(dienblad));
+                klant.getBetaalwijze().betaal(totaalPrijs);
             }
         } catch(TeWeinigGeldException e) {
             System.out.println(klant.getVoornaam() + " " +  klant.getAchternaam() + ".");

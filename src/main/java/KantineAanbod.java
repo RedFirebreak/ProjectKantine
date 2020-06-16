@@ -1,3 +1,4 @@
+import java.util.*;
 import java.util.HashMap;
 import java.util.ArrayList;
 
@@ -6,6 +7,7 @@ public class KantineAanbod {
     private HashMap<String, ArrayList<Artikel>> aanbod;
     private HashMap<String, Integer> startVoorraad;
     private HashMap<String, Double> prijzen;
+    private double[] korting;
 
     /**
      * Constructor, de dimenties van deze arrays moeten gelijk zijn.
@@ -15,13 +17,44 @@ public class KantineAanbod {
      * @param hoeveelheid Een array met hoeveelheden.
      */
     public KantineAanbod(String[] artikelnaam, double[] prijs, int[] hoeveelheid) {
+
+    // Zet een randomizer klaar.
+        Random random = new Random();
+
+        korting = new double[artikelnaam.length];
+
+    // bereken een dagaanbieding (minimaal 1)
+        boolean dagaanbieding = false;
+
+        while (dagaanbieding == false) {
+        // omdat de namen nog niet gekoppeld zijn aan de prijzen, werken we alleen met prijzen
+            boolean heeftkortinggeveven = false;
+            
+            for (int i = 0; i < artikelnaam.length; i++) {
+                int heeftKorting = random.nextInt(artikelnaam.length);
+                if (heeftKorting == 1) {
+                    // artikel heeft korting! Berekent korting van prijs en zet in arraylist
+                    korting[i] = (prijs[i] * 0.2);
+                    heeftkortinggeveven = true;
+                } else {
+                    korting[i] = 0.0;
+                }
+            }
+
+            if (heeftkortinggeveven == true) {
+                dagaanbieding = true;
+            }
+
+        }
+
         aanbod = new HashMap<String, ArrayList<Artikel>>();
         startVoorraad = new HashMap<String, Integer>();
         prijzen = new HashMap<String, Double>();
+
         for (int i = 0; i < artikelnaam.length; i++) {
             ArrayList<Artikel> artikelen = new ArrayList<Artikel>();
             for (int j = 0; j < hoeveelheid[i]; j++) {
-                artikelen.add(new Artikel(artikelnaam[i], prijs[i]));
+                artikelen.add(new Artikel(artikelnaam[i], prijs[i], korting[i]));
             }
             startVoorraad.put(artikelnaam[i], hoeveelheid[i]);
             prijzen.put(artikelnaam[i], prijs[i]);

@@ -1,6 +1,7 @@
 public class Artikel {
     private String naam;
     private double prijs;
+    private double korting;
 
     // Initialisatie = de instantievariabelen initialiseren, dat wil zeggen dat je
     // ze laat bestaan (hierboven gedaan)
@@ -17,6 +18,20 @@ public class Artikel {
     public Artikel(String naam, double prijs) {
         this.naam = naam;
         this.prijs = prijs;
+        this.korting = 0;
+    }
+
+    /**
+     * Een artikel is een product wat op een dienblad gezet kan worden, zodat de
+     * klant dit artikel kan afrekenen bij de kassa. Ook met korting! :D
+     * 
+     * @param naam  De naam van het artikel, in een String.
+     * @param prijs De prijs van het artikel, in een double waarde (12.34)
+     */
+    public Artikel(String naam, double prijs, double korting) {
+        this.naam = naam;
+        this.prijs = prijs;
+        this.korting = korting;
     }
 
     /**
@@ -24,8 +39,9 @@ public class Artikel {
      * parameters. Naam en prijs worden hierdoor gezet.
      */
     public Artikel() {
-        naam = "Geen artikel gekozen";
-        prijs = 9999.99;
+        this.naam = "Geen artikel gekozen";
+        this.prijs = 9999.99;
+        this.korting = 0;
     }
 
     @Override
@@ -76,4 +92,21 @@ public class Artikel {
     public void setNaam(String setNaam) {
         naam = setNaam;
     }
+
+    /**
+     * De totale korting van dit artikel
+     */
+    public double getKorting() {
+        return this.korting;
+    }
+
+    /**
+     * Zet de korting van het product.
+     * 
+     * @param korting de totale korting van het product
+     */
+    public void setKorting(double korting) {
+        this.korting = korting;
+    }
+
 }
