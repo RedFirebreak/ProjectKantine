@@ -1,7 +1,7 @@
 public class Student extends Persoon{
-    String type = "Student";
-    int studentnummer;
-    String studierichting;
+    private final String type = "Student";
+    private int studentnummer;
+    private String studierichting;
 
     /**
      * Constructor.
@@ -10,9 +10,9 @@ public class Student extends Persoon{
      * @param voornaam          De voornaam van de persoon.
      * @param achternaam        De achternaam van de persoon.
      * @param geboorteDatum     de geboorteDatum van de persoon.
-     * @param geslacht          Het geslacht van de persoon (M/V)
-     * @param studentnummer     Het studentnummer van de student
-     * @param studierichting    De studierichting van de student
+     * @param geslacht          Het geslacht van de persoon (M/V).
+     * @param studentnummer     Het studentnummer van de student.
+     * @param studierichting    De studierichting van de student.
      */
     public Student(int BSN, String voornaam, String achternaam, Datum geboorteDatum, char geslacht, int studentnummer, String studierichting) {
         super(BSN, voornaam, achternaam, geboorteDatum, geslacht);
@@ -55,14 +55,10 @@ public class Student extends Persoon{
     @Override
     public String toString() {
         return "{" +
-            " Klant='" + type + "'" +
-            " BSN='" + getBSN() + "'" +
-            " Voornaam='" + getVoornaam() + "'" +
-            " Achternaam='" + getAchternaam() + "'" +
-            " Geboortedatum='" + getGeboorteDatum() + "'" +
-            " Geslacht='" + getGeslacht() + "'" +
-            " studentnummer='" + getStudentnummer() + "'" +
-            ", studierichting='" + getStudierichting() + "'" +
+            "Klant: '" + type + "'" +
+            ", " + super.toString() + 
+            ", studentnummer: '" + getStudentnummer() + "'" +
+            ", studierichting: '" + getStudierichting() + "'" +
             "}";
     }
 }

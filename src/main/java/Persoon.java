@@ -59,16 +59,6 @@ public class Persoon {
         geboorteDatum = new Datum();
     }
 
-    @Override
-    /**
-     * Geef alle gegevens van de persoon weer in één String. getGeboorteDatum en
-     * getGeslacht moeten een Getter blijven i.v.m. extra checks.
-     */
-    public String toString() {
-        return "BSN: " + BSN + ", naam: " + voornaam + " " + achternaam + ", geboortedatum: " + getGeboorteDatum()
-                + ", geslacht: " + getGeslacht() + ".";
-    }
-
     /**
      * Krijg het BSN nummer van de Persoon.
      * 
@@ -183,6 +173,20 @@ public class Persoon {
             System.out.println(
                     "Dit is niet een geldig geslacht, we doen hier alleen maar aan 2 geslachten, M (man) en V (vrouw).");
         }
+    }
+
+    @Override
+    /**
+     * Geef alle gegevens van de persoon weer in één String. getGeboorteDatum en
+     * getGeslacht moeten een Getter blijven i.v.m. extra checks.
+     */
+    public String toString() {
+        return "{" + 
+            "BSN: '" + BSN + "'" + 
+            ", naam: '" + voornaam + " " + achternaam + "'" + 
+            ", geboortedatum: '" + getGeboorteDatum() + "'" + 
+            ", geslacht: '" + getGeslacht() + "'" + 
+            "}";
     }
 }
 // Week 3 -> opgave 3b: Een super aanroep moet altijd bovenin de constructor staan

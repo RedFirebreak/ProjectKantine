@@ -1,7 +1,7 @@
 public class Docent extends Persoon implements KortingskaartHouder {
-    String type = "Docent";
-    String vierLetterCode;
-    String afdeling;
+    private final String type = "Docent";
+    private String vierLetterCode;
+    private String afdeling;
 
     /**
      * Constructor.
@@ -70,14 +70,10 @@ public class Docent extends Persoon implements KortingskaartHouder {
     @Override
     public String toString() {
         return "{" +
-            " Klant='" + type + "'" +
-            " BSN='" + getBSN() + "'" +
-            " Voornaam='" + getVoornaam() + "'" +
-            " Achternaam='" + getAchternaam() + "'" +
-            " Geboortedatum='" + getGeboorteDatum() + "'" +
-            " Geslacht='" + getGeslacht() + "'" +
-            " vierLetterCode='" + getVierLetterCode() + "'" +
-            ", afdeling='" + getAfdeling() + "'" +
+            "Klant: '" + type + "'" +
+            ", " + super.toString() + 
+            ", vierLetterCode: '" + getVierLetterCode() + "'" +
+            ", afdeling: '" + getAfdeling() + "'" +
             "}";
     }
 

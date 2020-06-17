@@ -1,6 +1,6 @@
 public class KantineMedewerker extends Persoon implements KortingskaartHouder {
-    String type = "KantineMedewerker";
-    Boolean magAchterKassa = true;
+    private final String type = "KantineMedewerker";
+    private boolean magAchterKassa = true;
 
     /**
      * Constructor.
@@ -16,18 +16,20 @@ public class KantineMedewerker extends Persoon implements KortingskaartHouder {
     }
 
     /**
-     * Getter voor magAchterKassa
+     * Getter voor magAchterKassa.
+     * 
      * @return magAchterKassa
      */
-    public Boolean getMagAchterKassa() {
+    public boolean getMagAchterKassa() {
         return this.magAchterKassa;
     }
 
     /**
-     * Setter voor magAchterKassa
+     * Setter voor magAchterKassa.
+     * 
      * @param magAchterKassa
      */
-    public void setMagAchterKassa(Boolean magAchterKassa) {
+    public void setMagAchterKassa(boolean magAchterKassa) {
         this.magAchterKassa = magAchterKassa;
     }
 
@@ -49,13 +51,9 @@ public class KantineMedewerker extends Persoon implements KortingskaartHouder {
     @Override
     public String toString() {
         return "{" +
-            " Klant='" + type + "'" +
-            " BSN='" + getBSN() + "'" +
-            " Voornaam='" + getVoornaam() + "'" +
-            " Achternaam='" + getAchternaam() + "'" +
-            " Geboortedatum='" + getGeboorteDatum() + "'" +
-            " Geslacht='" + getGeslacht() + "'" +
-            " magAchterKassa='" + getMagAchterKassa() + "'" +
+            "Klant: '" + type + "'" +
+            ", " + super.toString() + 
+            ", magAchterKassa: '" + getMagAchterKassa() + "'" +
             "}";
     }
 
