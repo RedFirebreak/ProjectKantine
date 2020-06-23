@@ -1,7 +1,13 @@
+import java.util.*;
 import java.time.LocalDate;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 public class Kassa {
-
+    private javax.persistence.EntityManager manager;
     KassaRij kassaRij = new KassaRij();
     double totaalPrijs;
     int aantalArtikelen;
@@ -12,7 +18,10 @@ public class Kassa {
      * 
      * @param kassaRij De kassaRij die bij de kassa hoort.
      */
-    public Kassa(KassaRij kassaRij) {
+    public Kassa(KassaRij kassaRij, EntityManager manager) {
+        // initialiseer de manager
+        this.manager = manager;
+
         this.kassaRij = kassaRij;
         totaalPrijs = 0.0;
         aantalArtikelen = 0;
@@ -27,19 +36,34 @@ public class Kassa {
      * @param dienblad Die moet afrekenen.
      */
     public void rekenAf(Dienblad dienblad) {
-        Persoon klant = dienblad.getKlant();
+        EntityTransaction transaction = null;
 
+        Persoon klant = dienblad.getKlant();
         Factuur factuur = new Factuur(dienblad, LocalDate.now());
         
         try {
+            // Voeg in database
+            // Get a transaction, sla de student gegevens op en commit de transactie
+            transaction = manager.getTransaction();
+            transaction.begin();
+            manager.persist(factuur);
+            
             klant.getBetaalwijze().betaal(factuur.getTotaal());
             aantalArtikelen += factuur.getAantalArtikelen();
             toegepasteKorting += factuur.getKorting();
             totaalPrijs += factuur.getTotaal();
 
+            transaction.commit();
+
         } catch(TeWeinigGeldException e) {
             System.out.println(klant.getVoornaam() + " " +  klant.getAchternaam() + ".");
-        }
+    
+            // rollback de database als de klant te weinig geld heeft
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            
+          }
     }
 
     /**

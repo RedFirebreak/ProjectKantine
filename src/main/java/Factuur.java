@@ -1,15 +1,41 @@
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Stack;
 import java.io.Serializable;
 
-public class Factuur implements Serializable {
+import javax.persistence.Id;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.CascadeType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.OneToMany;
 
+@Entity
+@Table(name = "factuur")
+public class Factuur implements Serializable {
+    @Id
+    @GeneratedValue
     private Long id;
+
+    @Column(name = "datum", nullable = true)
     private LocalDate datum;
+
+    @Column(name = "korting", nullable = true)
     private double korting;
+
+    @Column(name = "aantalArtikelen", nullable = true)
     private int aantalArtikelen;
+
+    @Column(name = "totaal", nullable = true)
     private double totaal;
+
+    @OneToMany(targetEntity = FactuurRegel.class, mappedBy = "factuur",
+            cascade = CascadeType.ALL, orphanRemoval = true)
+    private ArrayList<FactuurRegel> regels = new ArrayList<FactuurRegel>();
 
     public Factuur() {
         totaal = 0;
@@ -54,6 +80,12 @@ public class Factuur implements Serializable {
                         // Artikel is geen dagaanbieding, maar user heeft een kortingskaart
                         pashouderkorting += (artikel.getPrijs() * (kortingskaartHouder.geefKortingsPercentage() / 100));
                     }
+
+                    // Maak een FactuurRegel aan
+                    regels.add(new FactuurRegel(this, artikel));
+
+                    // Zet de FactuurRegel in de database ?
+
                 }
 
                 // Alleen voor docent op het moment:
@@ -81,6 +113,7 @@ public class Factuur implements Serializable {
                 korting = totaalKorting;
                 aantalArtikelen = dienblad.getArtikelen().size();
             }
+
         }
 
     /**
@@ -119,9 +152,17 @@ public class Factuur implements Serializable {
      * @return een printbaar bonnetje.
      */
     public String toString() {
-        return "Datum: " + datum + 
-            "Aantal artikelen: " + getAantalArtikelen() + 
-            "Totaal: " + getTotaal() + 
-            "Korting: " + getKorting();
+        String returnstring =   "Datum: " + datum + 
+                                "Aantal artikelen: " + getAantalArtikelen() + 
+                                "Totaal: " + getTotaal() + 
+                                "Korting: " + getKorting();
+        int artikelcount    = 0;
+        Iterator<FactuurRegel> iterator = regels.iterator();
+        while (iterator.hasNext()) {
+            artikelcount++;
+            FactuurRegel artikel = iterator.next();
+            returnstring += "Artikel #" + artikelcount + " " +artikel.toString();
+        }   
+        return returnstring;
     }
 }

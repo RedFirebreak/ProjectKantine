@@ -3,6 +3,7 @@ import java.util.*;
 import javax.persistence.Persistence;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 
 
 public class KantineSimulatie2 {
@@ -35,11 +36,11 @@ public class KantineSimulatie2 {
     private static final int MAX_ARTIKELEN_PER_SOORT = 1;
 
     // minimum en maximum aantal personen per dag
-    private static final int MIN_PERSONEN_PER_DAG = 50;
-    private static final int MAX_PERSONEN_PER_DAG = 100;
+    private static final int MIN_PERSONEN_PER_DAG = 5;
+    private static final int MAX_PERSONEN_PER_DAG = 20;
 
     // minimum en maximum artikelen per persoon
-    private static final int MIN_ARTIKELEN_PER_PERSOON = 1;
+    private static final int MIN_ARTIKELEN_PER_PERSOON = 2;
     private static final int MAX_ARTIKELEN_PER_PERSOON = 4;
 
     // totaalomzet
@@ -50,8 +51,11 @@ public class KantineSimulatie2 {
      * Constructor
      */
     public KantineSimulatie2() {
+        // Create the manager
+        manager = ENTITY_MANAGER_FACTORY.createEntityManager();
+
         // Maak een nieuwe kantine aan, de "hoofd" klasse.
-        kantine = new Kantine();
+        kantine = new Kantine(manager);
 
         // Zet een randomizer klaar.
         random = new Random();
@@ -121,8 +125,6 @@ public class KantineSimulatie2 {
      * @param dagen De hoeveelheid dagen die je wil simuleren.
      */
     public void simuleer(int dagen) {
-        // Create the manager
-        manager = ENTITY_MANAGER_FACTORY.createEntityManager();
 
         // Zet de variabele voor administratie.
             gemiddeldeArtikelen = new int[dagen+1];
@@ -321,10 +323,51 @@ public class KantineSimulatie2 {
         System.out.printf("Vrijdag: " + "%.2f%n",dagTotalen[4]);
         System.out.printf("Zaterdag: " + "%.2f%n",dagTotalen[5]);
         System.out.printf("Zondag: " + "%.2f%n",dagTotalen[6]);
+
+        // NOW STOP - > Querytime
         
+        // single query
+        System.out.println("~Now stop. Querytime~");
+
+        // 3.a
+        Query query = manager.createQuery("SELECT SUM(totaal) AS totaal, SUM(korting) AS korting FROM Factuur");
+        List<Object[]> resultList = query.getResultList();
+
+        // Dump all results from the resultlist
+        // ResultList.forEach(r -> System.out.println(Arrays.toString(r)));
+
+        System.out.println("3A: Totale omzetten");
+        for (Object[] r : resultList) {
+            System.out.println("Totaal Omzet: "   + r[0]);
+            System.out.println("Totaal Korting: " + r[1]);
+        }
+
+        // 3.b
+        query = manager.createQuery("SELECT AVG(totaal) AS totaal, AVG(korting) AS korting FROM Factuur");
+        resultList = query.getResultList();
+
+        System.out.println("3B: Gemiddelde omzetten");
+        for (Object[] r : resultList) {
+            System.out.println("Gemiddelde omzet per factuur: "   + r[0]);
+            System.out.println("Gemiddelde korting per factuur: " + r[1]);
+        }
+
+        // 3.c
+        query = manager.createQuery("SELECT totaal FROM Factuur ORDER BY totaal DESC");
+        query.setMaxResults(3);
+        resultList = query.getResultList();
+        
+        System.out.println("3C: Top 3 hoogste facturen");
+
+        Object[] r = resultList.toArray();
+            System.out.println("#1: "   + r[0]);
+            System.out.println("#2: "   + r[1]);
+            System.out.println("#3: "   + r[2]);
+    
+        System.out.println("~Close DB~");
         // Close manager and database :)
         manager.close();
         ENTITY_MANAGER_FACTORY.close();
-
     }
+
 }

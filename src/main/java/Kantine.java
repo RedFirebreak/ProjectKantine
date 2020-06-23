@@ -1,5 +1,8 @@
-public class Kantine {
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 
+public class Kantine {
+    private javax.persistence.EntityManager manager;
     private Kassa kassa;
     private KassaRij kassaRij;
     private KantineAanbod kantineAanbod;
@@ -13,7 +16,10 @@ public class Kantine {
      * Constructor, zet de waarden voor de kassa op 0 en maak een kassa en een rij
      * aan.
      */
-    public Kantine() {
+    public Kantine(EntityManager manager) {
+        // initialiseer de manager
+        this.manager = manager;
+
         // Maak een aanbod artikelen
         kantineAanbod = new KantineAanbod(artikelnamen, artikelprijzen, hoeveelheden);
 
@@ -21,10 +27,12 @@ public class Kantine {
         kassaRij = new KassaRij();
 
         // Maak een kassa aan
-        kassa = new Kassa(kassaRij);
+        kassa = new Kassa(kassaRij, manager);
 
         // Zet de kassa op 0
         kassa.resetKassa();
+
+        
     }
 
     /**

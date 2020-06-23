@@ -3,10 +3,8 @@ public class run {
     public static final int DAGEN = 7; // 'Default' aantal dagen
     public static KantineSimulatie2 simulatie; // De opgeslagen KantineSimulatie
 
-    
-
     /**
-     * Start de simulatie https://shorturl.at/hCDKR
+     * Start de simulatie
      */
     public static void main(String[] args) {
         int tempDagen = 0;

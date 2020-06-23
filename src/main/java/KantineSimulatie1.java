@@ -7,7 +7,7 @@ public class KantineSimulatie1 {
      */
     public KantineSimulatie1(int dagen) {
 
-        kantine = new Kantine();
+        //kantine = new Kantine();
         simuleer(dagen);
     }
 
