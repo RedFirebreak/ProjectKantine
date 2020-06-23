@@ -1,10 +1,11 @@
-import java.util.*;
+import java.time.LocalDate;
 
 public class Kassa {
 
     KassaRij kassaRij = new KassaRij();
-    double totaalPrijs = 0.0;
-    int aantalArtikelen = 0;
+    double totaalPrijs;
+    int aantalArtikelen;
+    double toegepasteKorting;
 
     /**
      * Constructor.
@@ -13,6 +14,9 @@ public class Kassa {
      */
     public Kassa(KassaRij kassaRij) {
         this.kassaRij = kassaRij;
+        totaalPrijs = 0.0;
+        aantalArtikelen = 0;
+        toegepasteKorting = 0.0;
     }
 
     /**
@@ -23,63 +27,16 @@ public class Kassa {
      * @param dienblad Die moet afrekenen.
      */
     public void rekenAf(Dienblad dienblad) {
-        // Als de klant kan betalen, rekenen we af, anders niet.
         Persoon klant = dienblad.getKlant();
+
+        Factuur factuur = new Factuur(dienblad, LocalDate.now());
+        
         try {
-            if((klant instanceof KortingskaartHouder)) {
-                KortingskaartHouder kortingskaartHouder = ((KortingskaartHouder)klant);
-                // Zet totaalkorting op 0
-                double totaalKorting = 0;
-                double aanbiedingkorting = 0;
-                double pashouderkorting = 0;
+            klant.getBetaalwijze().betaal(factuur.getTotaal());
+            aantalArtikelen += factuur.getAantalArtikelen();
+            toegepasteKorting += factuur.getKorting();
+            totaalPrijs += factuur.getTotaal();
 
-                // Krijg alle artikelen van het dienblad
-                Stack<Artikel> artikelen = dienblad.getArtikelen();
-                // Iterate om de korting te berekenen
-                Iterator<Artikel> iterator = artikelen.iterator();
-                while (iterator.hasNext()) {
-                    Artikel artikel = iterator.next();
-                    double artikelkorting = artikel.getKorting();
-
-                    if (artikelkorting > 0) {
-                        // Artikel is een dagaanbieding!
-                        aanbiedingkorting += artikelkorting;
-                    } else {
-                        // Artikel is geen dagaanbieding, maar user heeft een kortingskaart
-                        pashouderkorting += (artikel.getPrijs() * (kortingskaartHouder.geefKortingsPercentage() / 100));
-                    }
-                }
-                
-                // Alleen voor docent op het moment:
-                if (kortingskaartHouder.heeftMaximum()) {
-                    if (pashouderkorting > kortingskaartHouder.geefMaximum()) {
-                        pashouderkorting = kortingskaartHouder.geefMaximum();
-                    }
-                }
-                
-                totaalKorting = aanbiedingkorting + pashouderkorting;
-
-                totaalPrijs += (getTotaalPrijs(dienblad) - totaalKorting);
-                aantalArtikelen += dienblad.getArtikelen().size();
-                klant.getBetaalwijze().betaal(totaalPrijs);
-
-            } else {
-                // Zet totaalkorting op 0
-                double totaalKorting = 0;
-
-                // Krijg alle artikelen van het dienblad
-                Stack<Artikel> artikelen = dienblad.getArtikelen();
-                // Iterate om de korting te berekenen
-                Iterator<Artikel> iterator = artikelen.iterator();
-                while (iterator.hasNext()) {
-                    Artikel artikel = iterator.next();
-                    totaalKorting += artikel.getKorting();
-                }
-
-                totaalPrijs += (getTotaalPrijs(dienblad) - totaalKorting);
-                aantalArtikelen += dienblad.getArtikelen().size();
-                klant.getBetaalwijze().betaal(totaalPrijs);
-            }
         } catch(TeWeinigGeldException e) {
             System.out.println(klant.getVoornaam() + " " +  klant.getAchternaam() + ".");
         }
@@ -123,17 +80,5 @@ public class Kassa {
         return aantalArtikelen;
     }
 
-    /**
-     * Methode om de totaalprijs van de artikelen op dienblad uit te rekenen.
-     *
-     * @return De totaalprijs.
-     */
-    public double getTotaalPrijs(Dienblad artikelen) {
-        double totaal = 0.0;
-        Iterator<Artikel> iterator = artikelen.getArtikelen().iterator();
-        while (iterator.hasNext()) {
-            totaal += ((Artikel) iterator.next()).getPrijs();
-        }
-        return totaal;
-    }
+    
 }
