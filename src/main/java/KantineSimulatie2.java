@@ -1,5 +1,6 @@
 import java.sql.Array;
 import java.util.*;
+import java.time.LocalDate;
 import javax.persistence.Persistence;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -284,7 +285,7 @@ public class KantineSimulatie2 {
             }
 
             // Verwerk rij voor de kassa.
-            kantine.verwerkRijVoorKassa();
+            kantine.verwerkRijVoorKassa(i);
 
             // druk de dagtotalen af en hoeveel personen binnen zijn gekomen.
             System.out.println("Aantal klanten: " + aantalPersonen);
@@ -332,25 +333,26 @@ public class KantineSimulatie2 {
         // 3.a
         Query query = manager.createQuery("SELECT SUM(totaal) AS totaal, SUM(korting) AS korting FROM Factuur");
         List<Object[]> resultList = query.getResultList();
-
-        // Dump all results from the resultlist
-        // ResultList.forEach(r -> System.out.println(Arrays.toString(r)));
-
+        /*
         System.out.println("3A: Totale omzetten");
         for (Object[] r : resultList) {
             System.out.println("Totaal Omzet: "   + r[0]);
             System.out.println("Totaal Korting: " + r[1]);
         }
+        */
+
+        resultList.forEach(r -> System.out.println(Arrays.toString(r)));
 
         // 3.b
         query = manager.createQuery("SELECT AVG(totaal) AS totaal, AVG(korting) AS korting FROM Factuur");
         resultList = query.getResultList();
 
         System.out.println("3B: Gemiddelde omzetten");
-        for (Object[] r : resultList) {
+        resultList.forEach(r -> System.out.println(Arrays.toString(r)));
+        /*for (Object[] r : resultList) {
             System.out.println("Gemiddelde omzet per factuur: "   + r[0]);
             System.out.println("Gemiddelde korting per factuur: " + r[1]);
-        }
+        }*/
 
         // 3.c
         query = manager.createQuery("SELECT totaal FROM Factuur ORDER BY totaal DESC");
@@ -359,15 +361,66 @@ public class KantineSimulatie2 {
         
         System.out.println("3C: Top 3 hoogste facturen");
 
-        Object[] r = resultList.toArray();
-            System.out.println("#1: "   + r[0]);
-            System.out.println("#2: "   + r[1]);
-            System.out.println("#3: "   + r[2]);
-    
+        Object[] g = resultList.toArray();
+            System.out.println("#1: "   + g[0]);
+            System.out.println("#2: "   + g[1]);
+            System.out.println("#3: "   + g[2]);
+
+        System.out.println("~Now stop. Querytime V2~");
+
+        // 5.a
+        System.out.println("5a: Gemiddelde omzetten");
+        OmzetKortingArtikel("Broodje kaas");
+        OmzetKortingArtikel("Koffie");
+        OmzetKortingArtikel("Broodje pindakaas");
+        OmzetKortingArtikel("Appelsap");
+
+        // 5.b 
+        queryTotaalPerDag(dagen);
+
+        // 5.c
+        System.out.println("5c: top 3 meest populaire artikelen");
+        query = manager
+                .createQuery("SELECT artikel.naam, COUNT(artikel.naam) FROM FactuurRegel GROUP BY artikel.naam ORDER BY COUNT(artikel.naam) DESC");
+        query.setMaxResults(3);
+        resultList = query.getResultList();
+        resultList.forEach(r -> System.out.println(Arrays.toString(r)));
+
+
+        // 5.d
+        System.out.println("5d: top 3 hoogste omzet artikelen");
+        query = manager
+                .createQuery("SELECT artikel.naam, SUM(artikel.prijs - artikel.korting) FROM FactuurRegel GROUP BY artikel.naam ORDER BY SUM(artikel.prijs - artikel.korting) DESC");
+        query.setMaxResults(3);
+        resultList = query.getResultList();
+        resultList.forEach(r -> System.out.println(Arrays.toString(r)));
+
         System.out.println("~Close DB~");
         // Close manager and database :)
         manager.close();
         ENTITY_MANAGER_FACTORY.close();
     }
 
+    public void OmzetKortingArtikel(String artikel) {
+        Query query = manager.createQuery("SELECT id FROM FactuurRegel where naam = '"+ artikel + "' and korting > 0");
+        List<FactuurRegel> resultList = query.getResultList();
+        double korting = resultList.size() * (kantineAanbod.getArtikel(artikel).getPrijs()  * 0.2);
+        System.out.println("Korting op " + artikel + ": €" + korting);
+
+        query = manager.createQuery("SELECT id FROM FactuurRegel where naam = '"+ artikel + "'");
+        resultList = query.getResultList();
+        System.out.println("Totaal verdiend met " + artikel + ": €" + resultList.size() * kantineAanbod.getArtikel(artikel).getPrijs());
+
+    }
+
+    public void queryTotaalPerDag(int dagen) {
+        for (int i = 0; i < dagen; i++) {
+            System.out.println("Dag: " + LocalDate.now().plusDays(i));
+            Query query = manager
+                    .createQuery("SELECT fr.artikel.naam, sum(fr.artikel.prijs), sum(fr.artikel.korting) FROM FactuurRegel fr JOIN fr.factuur f WHERE f.datum = '"+ LocalDate.now().plusDays(i)+ "'GROUP BY fr.artikel.naam ");
+            query.setMaxResults(3);
+            List<Object[]> resultList = query.getResultList();
+            resultList.forEach(r -> System.out.println(Arrays.toString(r)));
+        }
+    };
 }

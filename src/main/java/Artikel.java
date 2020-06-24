@@ -1,3 +1,6 @@
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class Artikel {
     private String naam;
     private double prijs;

@@ -1,7 +1,5 @@
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Stack;
+import java.util.*;
 import java.io.Serializable;
 
 import javax.persistence.Id;
@@ -35,7 +33,7 @@ public class Factuur implements Serializable {
 
     @OneToMany(targetEntity = FactuurRegel.class, mappedBy = "factuur",
             cascade = CascadeType.ALL, orphanRemoval = true)
-    private ArrayList<FactuurRegel> regels = new ArrayList<FactuurRegel>();
+    private List<FactuurRegel> regels = new ArrayList<FactuurRegel>();
 
     public Factuur() {
         totaal = 0;
@@ -84,8 +82,6 @@ public class Factuur implements Serializable {
                     // Maak een FactuurRegel aan
                     regels.add(new FactuurRegel(this, artikel));
 
-                    // Zet de FactuurRegel in de database ?
-
                 }
 
                 // Alleen voor docent op het moment:
@@ -107,6 +103,9 @@ public class Factuur implements Serializable {
                 while (iterator.hasNext()) {
                     Artikel artikel = iterator.next();
                     totaalKorting += artikel.getKorting();
+
+                    // Maak een FactuurRegel aan
+                    regels.add(new FactuurRegel(this, artikel));
                 }
 
                 totaal += (getTotaalPrijs(dienblad) - totaalKorting);
@@ -156,6 +155,7 @@ public class Factuur implements Serializable {
                                 "Aantal artikelen: " + getAantalArtikelen() + 
                                 "Totaal: " + getTotaal() + 
                                 "Korting: " + getKorting();
+        
         int artikelcount    = 0;
         Iterator<FactuurRegel> iterator = regels.iterator();
         while (iterator.hasNext()) {

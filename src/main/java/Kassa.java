@@ -35,11 +35,11 @@ public class Kassa {
      *
      * @param dienblad Die moet afrekenen.
      */
-    public void rekenAf(Dienblad dienblad) {
+    public void rekenAf(Dienblad dienblad, int i) {
         EntityTransaction transaction = null;
 
         Persoon klant = dienblad.getKlant();
-        Factuur factuur = new Factuur(dienblad, LocalDate.now());
+        Factuur factuur = new Factuur(dienblad, (LocalDate.now().plusDays(i)));
         
         try {
             // Voeg in database

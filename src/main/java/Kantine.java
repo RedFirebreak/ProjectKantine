@@ -19,7 +19,6 @@ public class Kantine {
     public Kantine(EntityManager manager) {
         // initialiseer de manager
         this.manager = manager;
-
         // Maak een aanbod artikelen
         kantineAanbod = new KantineAanbod(artikelnamen, artikelprijzen, hoeveelheden);
 
@@ -53,14 +52,14 @@ public class Kantine {
      * Deze methode handelt de rij voor de kassa af. Het is handiger om een
      * while-loop te doen dan een for-loop omdat we een methode isErEenRij is.
      */
-    public void verwerkRijVoorKassa() {
+    public void verwerkRijVoorKassa(int i) {
         while (kassaRij.erIsEenRij()) {
             Dienblad eerstePersoonDienblad = kassaRij.eerstePersoonInRij(); // rij vgm...
 
             // totaalBedrag += kassa.getTotaalPrijs(eerstePersoonDienblad);
             // aantalArtikelen += kassa.getAantalArtikelen();
 
-            kassa.rekenAf(eerstePersoonDienblad);
+            kassa.rekenAf(eerstePersoonDienblad, i);
         }
     }
 
